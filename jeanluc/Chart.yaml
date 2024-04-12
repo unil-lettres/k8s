@@ -1,0 +1,4 @@
+apiVersion: v2
+name: helm-jeanluc
+description: Helm chart de Jean-Luc
+version: 1.0.0
