@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailtpit
+  namespace: mlett
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mailpit
+  template:
+    metadata:
+      labels:
+        app: mailpit
+    spec:
+      containers:
+      - name: mailpit
+        image: axllent/mailpit:latest
+        #command: ["sleep"]
+        #args: ["3000"]        
+        envFrom:
+          - configMapRef:
+              name: mailpit-cm
+        ports:
+        - containerPort: 8025
+          name: mailpit-ui
+          protocol: TCP
+        - containerPort: 1025
+          name: mailpit-smtp
+          protocol: TCP
+        volumeMounts:
+        - name: data-volume
+          mountPath: /mpit
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: mailpit-pvc

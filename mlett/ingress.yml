@@ -1,0 +1,17 @@
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: mailpit-ingress
+#  namespace: mlett
+#spec:
+# rules:
+#  - host: "xxx.unil.ch"
+#    http:
+#      paths:
+#      - pathType: Prefix
+#        path: "/"
+#        backend:
+#          service:
+#            name: mailpit-svc
+#            port:
+#              number: 8025

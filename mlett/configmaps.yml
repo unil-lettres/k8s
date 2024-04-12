@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mailpit-cm
+  namespace: mlett
+data:
+  MP_MAX_MESSAGES: "1000"
+  MP_DATA_FILE: /mpit/database/mailpit.db
+  MP_SMTP_AUTH_ALLOW_INSECURE: "1"
+  MP_SMTP_AUTH_FILE: /mpit/auth/auth.txt
+  MP_UI_AUTH_FILE: /mpit/auth/auth.txt
+  TZ: Europe/Zurich
+  MP_VERBOSE: "0"
