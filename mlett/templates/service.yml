@@ -2,21 +2,21 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: mailpit-svc
-  name: mailpit-svc
-  namespace: mlett
+    app: {{ .Values.app_name }}-svc
+  name: {{ .Values.app_name }}-svc
+  namespace: {{ .Values.namespace }}
 spec:
   ports:
-  - name: "mailpit-ui"
+  - name: "{{ .Values.app_name }}-ui"
     port: 8025
     protocol: TCP
     targetPort: 8025
-  - name: "mailpit-smtp"
+  - name: "{{ .Values.app_name }}-smtp"
     port: 1025
     protocol: TCP
     targetPort: 1025
   selector:
-    app: mailpit
+    app: {{ .Values.app_name }}
   type: ClusterIP
 status:
   loadBalancer: {}

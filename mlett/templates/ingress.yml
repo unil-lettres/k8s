@@ -2,7 +2,7 @@
 #kind: Ingress
 #metadata:
 #  name: mailpit-ingress
-#  namespace: mlett
+#  namespace: {{ .Values.namespace }}
 #spec:
 # rules:
 #  - host: "xxx.unil.ch"
@@ -12,6 +12,6 @@
 #        path: "/"
 #        backend:
 #          service:
-#            name: mailpit-svc
+#            name: {{ .Values.app_name }}-svc
 #            port:
 #              number: 8025

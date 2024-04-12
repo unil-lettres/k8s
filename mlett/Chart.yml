@@ -1,0 +1,4 @@
+apiVersion: v2
+name: helm-mlett
+description: Helm chart for Mailpit
+version: 1.0.0

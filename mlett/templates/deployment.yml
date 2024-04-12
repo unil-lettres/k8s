@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mailtpit
-  namespace: mlett
+  name: {{ .Values.app_name }}
+  namespace: {{ .Values.namespace }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      app: mailpit
+      app: {{ .Values.app_name }}
   template:
     metadata:
       labels:
-        app: mailpit
+        app: {{ .Values.app_name }}
     spec:
       containers:
       - name: mailpit
-        image: axllent/mailpit:latest
+        image: axllent/mailpit:{{ .Values.image_tag }}
         #command: ["sleep"]
         #args: ["3000"]        
         envFrom:
           - configMapRef:
-              name: mailpit-cm
+              name: {{ .Values.app_name }}-cm
         ports:
         - containerPort: 8025
-          name: mailpit-ui
+          name: {{ .Values.app_name }}-ui
           protocol: TCP
         - containerPort: 1025
-          name: mailpit-smtp
+          name: {{ .Values.app_name }}-smtp
           protocol: TCP
         volumeMounts:
         - name: data-volume
@@ -34,4 +34,4 @@ spec:
       volumes:
       - name: data-volume
         persistentVolumeClaim:
-          claimName: mailpit-pvc
+          claimName: {{ .Values.app_name }}-pvc
