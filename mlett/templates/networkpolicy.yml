@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ns-to-mlett
+  namespace: mlett
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: mlett
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: nginx-ingress
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: kube-system
