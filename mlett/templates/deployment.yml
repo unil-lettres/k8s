@@ -16,8 +16,8 @@ spec:
       containers:
       - name: mailpit
         image: axllent/mailpit:{{ .Values.image_tag }}
-        command: ["sleep"]
-        args: ["3000"]
+        #command: ["sleep"]
+        #args: ["3000"]
         envFrom:
           - configMapRef:
               name: {{ .Values.app_name }}-cm
