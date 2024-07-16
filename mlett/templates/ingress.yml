@@ -5,7 +5,7 @@
 #  namespace: {{ .Values.namespace }}
 #spec:
 # rules:
-#  - host: "xxx.unil.ch"
+#  - host: {{ .Values.ingress_host }}
 #    http:
 #      paths:
 #      - pathType: Prefix
