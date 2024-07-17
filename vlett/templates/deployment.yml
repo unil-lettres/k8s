@@ -14,23 +14,20 @@ spec:
         app: {{ .Values.app_name }}
     spec:
       containers:
-      - name: mailpit
-        image: axllent/mailpit:{{ .Values.image_tag }}
+      - name: vaultwarden
+        image: vaultwarden/server:{{ .Values.image_tag }}
         #command: ["sleep"]
         #args: ["3000"]
         envFrom:
           - configMapRef:
               name: {{ .Values.app_name }}-cm
         ports:
-        - containerPort: 8025
+        - containerPort: 80
           name: {{ .Values.app_name }}-ui
-          protocol: TCP
-        - containerPort: 1025
-          name: {{ .Values.app_name }}-smtp
           protocol: TCP
         volumeMounts:
         - name: data-volume
-          mountPath: /mpit
+          mountPath: /data
       volumes:
       - name: data-volume
         persistentVolumeClaim:

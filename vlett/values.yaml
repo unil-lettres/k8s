@@ -1,0 +1,15 @@
+namespace: vlett
+app_name: vaultwarden
+replicas: 1
+image_tag: 1.31.0
+ingress_host: my.host.com
+ENV:
+  domain: https://my.domain.com
+  signups_allowed: false
+  signups_verify: true
+  invitations_allowed: true
+  smtp_host: smtp.host.com
+  smtp_from: no-reply@example.com
+  smtp_port: 25
+  smtp_security: off
+  admin_token: admin_token

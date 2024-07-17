@@ -1,0 +1,4 @@
+apiVersion: v2
+name: helm-vlett
+description: Helm chart for Vaultwarden
+version: 1.0.0

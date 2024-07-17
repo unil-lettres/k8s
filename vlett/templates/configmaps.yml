@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app_name }}-cm
+  namespace: {{ .Values.namespace }}
+data:
+  DOMAIN: {{ .Values.ENV.domain }}
+  SIGNUPS_ALLOWED: {{ .Values.ENV.signups_allowed }}
+  SIGNUPS_VERIFY: {{ .Values.ENV.signups_verify }}
+  INVITATIONS_ALLOWED: {{ .Values.ENV.invitations_allowed }}
+  INVITATION_ORG_NAME: Vlett
+  LOG_FILE: /data/vaultwarden.log
+  SMTP_HOST: {{ .Values.ENV.smtp_host }}
+  SMTP_FROM: {{ .Values.ENV.smtp_from }}
+  SMTP_PORT: {{ .Values.ENV.smtp_port }}
+  SMTP_SECURITY: {{ .Values.ENV.smtp_security }}
+  ADMIN_TOKEN: {{ .Values.ENV.admin_token }}

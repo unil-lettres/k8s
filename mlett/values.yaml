@@ -1,8 +1,0 @@
-namespace: mlett
-app_name: mailpit
-replicas: 1
-image_tag: v1.19.1
-ingress_host: my.host.com
-ENV:
-  max_messages: 1000
-  verbose: 0

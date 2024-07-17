@@ -8,13 +8,9 @@ metadata:
 spec:
   ports:
   - name: "{{ .Values.app_name }}-ui"
-    port: 8025
+    port: 80
     protocol: TCP
-    targetPort: 8025
-  - name: "{{ .Values.app_name }}-smtp"
-    port: 1025
-    protocol: TCP
-    targetPort: 1025
+    targetPort: 80
   selector:
     app: {{ .Values.app_name }}
   type: ClusterIP
