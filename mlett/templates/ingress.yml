@@ -15,3 +15,10 @@ spec:
             name: {{ .Values.app_name }}-svc
             port:
               number: 8025
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: {{ .Values.app_name }}-svc
+            port:
+              number: 1025
