@@ -11,5 +11,5 @@ ENV:
   smtp_host: smtp.host.com
   smtp_from: no-reply@example.com
   smtp_port: 25
-  smtp_security: off
+  smtp_security: 'off'
   admin_token: admin_token
