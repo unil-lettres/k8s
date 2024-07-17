@@ -13,5 +13,5 @@ data:
   SMTP_HOST: "{{ .Values.ENV.smtp_host }}"
   SMTP_FROM: "{{ .Values.ENV.smtp_from }}"
   SMTP_PORT: "{{ .Values.ENV.smtp_port }}"
-  SMTP_SECURITY: "{{ .Values.ENV.smtp_security }}"
+  SMTP_SECURITY: "off"
   ADMIN_TOKEN: "{{ .Values.ENV.admin_token }}"
