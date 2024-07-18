@@ -30,10 +30,10 @@ spec:
           mountPath: /data
         resources:
           requests:
-            memory: "50Mi"
+            memory: "1Gi"
             cpu: "500m"
           limits:
-            memory: "500Mi"
+            memory: "2Gi"
             cpu: "1"
       volumes:
       - name: data-volume
