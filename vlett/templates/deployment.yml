@@ -28,6 +28,13 @@ spec:
         volumeMounts:
         - name: data-volume
           mountPath: /data
+        resources:
+          requests:
+            memory: "50Mi"
+            cpu: "500m"
+          limits:
+            memory: "500Mi"
+            cpu: "1"
       volumes:
       - name: data-volume
         persistentVolumeClaim:
