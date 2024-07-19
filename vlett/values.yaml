@@ -2,7 +2,8 @@ namespace: vlett
 app_name: vaultwarden
 replicas: 1
 image_tag: 1.31.0
-ingress_host: my.host.com
+ingress_host_cluster: my.host.com
+ingress_host_alias: my.host.com
 memory_request: 50Mi
 cpu_request: 0.3
 memory_limit: 500Mi

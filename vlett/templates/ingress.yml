@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.namespace }}
 spec:
  rules:
-  - host: {{ .Values.ingress_host }}
+  - host: {{ .Values.ingress_host_cluster }}
     http:
       paths:
       - pathType: Prefix
@@ -13,5 +13,15 @@ spec:
         backend:
           service:
             name: {{ .Values.app_name }}-svc
+            port:
+              number: 80
+  - host: {{ .Values.ingress_host_alias }}
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: service2
             port:
               number: 80
