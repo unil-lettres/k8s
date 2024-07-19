@@ -30,11 +30,11 @@ spec:
           mountPath: /data
         resources:
           requests:
-            memory: "50Mi"
-            cpu: "300m"
+            memory: "{{ .Values.memory_request }}"
+            cpu: "{{ .Values.cpu_request }}"
           limits:
-            memory: "500Mi"
-            cpu: "1"
+            memory: "{{ .Values.memory_limit }}"
+            cpu: "{{ .Values.cpu_limit }}"
       volumes:
       - name: data-volume
         persistentVolumeClaim:

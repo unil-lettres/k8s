@@ -3,6 +3,10 @@ app_name: vaultwarden
 replicas: 1
 image_tag: 1.31.0
 ingress_host: my.host.com
+memory_request: 50Mi
+cpu_request: 0.3
+memory_limit: 500Mi
+cpu_limit: 1
 ENV:
   domain: https://my.domain.com
   signups_allowed: false
