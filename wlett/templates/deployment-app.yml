@@ -38,6 +38,9 @@ spec:
         - name: data-volume
           mountPath: /var/www/bookstack/storage/uploads
           subPath: storage-uploads
+        - name: data-volume
+          mountPath: /var/www/bookstack/storage/logs
+          subPath: storage-logs
         resources:
           requests:
             memory: "{{ .Values.app_memory_request }}"
