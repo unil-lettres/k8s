@@ -6,12 +6,14 @@ app_memory_request: 100Mi
 app_cpu_request: 0.5
 app_memory_limit: 500Mi
 app_cpu_limit: 1
+app_storage_request: 30Gi
 db_name: bookstack-mysql
 db_image_tag: latest
 db_memory_request: 100Mi
 db_cpu_request: 0.5
 db_memory_limit: 500Mi
 db_cpu_limit: 1
+db_storage_request: 5Gi
 ingress_host_cluster: my.host.com
 ingress_host_alias: my.host.com
 ENV:
