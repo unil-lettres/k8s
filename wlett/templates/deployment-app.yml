@@ -19,7 +19,7 @@ spec:
         command:
           - /wait-for
         args:
-          - --host="{{ .Values.db_name }}-sv c:3306"
+          - --host="{{ .Values.db_name }}-svc:3306"
           - --verbose
       containers:
       - name: {{ .Values.app_name }}
