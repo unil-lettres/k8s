@@ -13,6 +13,16 @@ spec:
       labels:
         app: {{ .Values.app_name }}
     spec:
+      initContainers:
+      - name: wait-for
+        image: ghcr.io/patrickdappollonio/wait-for:latest
+        command:
+          - /wait-for
+        args:
+          - --host="{{ .Values.db_name }}-svc:3306"
+          - --every=2s
+          - --timeout=60s
+          - --verbose
       containers:
       - name: {{ .Values.app_name }}
         image: unillett/bookstack:{{ .Values.app_image_tag }}
