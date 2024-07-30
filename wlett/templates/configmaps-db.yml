@@ -8,3 +8,4 @@ data:
   MYSQL_USER: "{{ .Values.ENV.mysql_user }}"
   MYSQL_PASSWORD: "{{ .Values.ENV.mysql_password }}"
   MYSQL_ROOT_PASSWORD: "{{ .Values.ENV.mysql_root_password }}"
+  MARIADB_AUTO_UPGRADE: "1"
