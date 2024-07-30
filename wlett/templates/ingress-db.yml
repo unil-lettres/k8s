@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bookstack-ingress
+  namespace: {{ .Values.namespace }}
+spec:
+ rules:
+  - host: {{ .Values.db_ingress_host_cluster }}
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: {{ .Values.db_name }}-svc
+            port:
+              number: 3306
