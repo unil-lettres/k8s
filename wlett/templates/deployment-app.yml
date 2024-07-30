@@ -19,9 +19,7 @@ spec:
         command:
           - /wait-for
         args:
-          - --host="{{ .Values.db_name }}-s vc:3306"
-          - --every=2s
-          - --timeout=120s
+          - --host="{{ .Values.db_name }}-sv c:3306"
           - --verbose
       containers:
       - name: {{ .Values.app_name }}
