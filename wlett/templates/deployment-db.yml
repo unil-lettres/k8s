@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.db_name }}
-        image: maria db:{{ .Values.db_image_tag }}
+        image: mariadb:{{ .Values.db_image_tag }}
         envFrom:
           - configMapRef:
               name: {{ .Values.db_name }}-cm
