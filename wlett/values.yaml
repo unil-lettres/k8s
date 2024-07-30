@@ -1,0 +1,40 @@
+namespace: wlett
+app_name: bookstack-app
+app_replicas: 1
+app_image_tag: latest
+app_memory_request: 100Mi
+app_cpu_request: 0.5
+app_memory_limit: 500Mi
+app_cpu_limit: 1
+db_name: bookstack-mysql
+db_image_tag: latest
+db_memory_request: 100Mi
+db_cpu_request: 0.5
+db_memory_limit: 500Mi
+db_cpu_limit: 1
+ingress_host_cluster: my.host.com
+ingress_host_alias: my.host.com
+ENV:
+  mysql_database: bookstack
+  mysql_user: user
+  mysql_password: password
+  mysql_root_password: root
+  app_key: SomeRandomStringWith32Characters
+  app_url: https://my.domain.com
+  auth_method: ldap
+  ldap_server: my.ldap.server
+  ldap_base_dn: my.ldap.base.dn
+  ldap_dn: my.ldap.dn
+  ldap_pass: my.ldap.password
+  ldap_user_filter: my.ldap.user.filter
+  mail_mailer: smtp
+  mail_host: my.smtp.host
+  mail_port: 1025
+  mail_user: null
+  mail_password: null
+  mail_encryption: null
+  mail_from: dev@localhost.ch
+  mail_from_name: Webmaster
+  file_upload_size_limit: 200
+  recycle_bin_lifetime: 90
+  ip_address_precision: 3

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.db_name }}-cm
+  namespace: {{ .Values.namespace }}
+data:
+  MYSQL_DATABASE: "{{ .Values.ENV.mysql_database }}"
+  MYSQL_USER: "{{ .Values.ENV.mysql_user }}"
+  MYSQL_PASSWORD: "{{ .Values.ENV.mysql_password }}"
+  MYSQL_ROOT_PASSWORD: "{{ .Values.ENV.mysql_root_password }}"

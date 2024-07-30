@@ -1,0 +1,4 @@
+apiVersion: v2
+name: helm-wlett
+description: Helm chart for Bookstack
+version: 1.0.0

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app_name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.app_replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app_name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app_name }}
+    spec:
+      containers:
+      - name: {{ .Values.app_name }}
+        image: unillett/bookstack:{{ .Values.app_image_tag }}
+        #command: ["sleep"]
+        #args: ["3000"]
+        envFrom:
+          - configMapRef:
+              name: {{ .Values.app_name }}-cm
+        ports:
+        - containerPort: 8080
+          name: {{ .Values.app_name }}
+          protocol: TCP
+        volumeMounts:
+        - name: data-volume
+          mountPath: /var/www/bookstack/public/uploads
+          subPath: public-uploads
+        - name: data-volume
+          mountPath: /var/www/bookstack/storage/uploads
+          subPath: storage-uploads
+        resources:
+          requests:
+            memory: "{{ .Values.app_memory_request }}"
+            cpu: "{{ .Values.app_cpu_request }}"
+          limits:
+            memory: "{{ .Values.app_memory_limit }}"
+            cpu: "{{ .Values.app_cpu_limit }}"
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: {{ .Values.app_name }}-pvc

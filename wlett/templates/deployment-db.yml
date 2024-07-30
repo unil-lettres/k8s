@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.db_name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.db_name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.db_name }}
+    spec:
+      containers:
+      - name: {{ .Values.db_name }}
+        image: mariadb:{{ .Values.db_image_tag }}
+        #command: ["sleep"]
+        #args: ["3000"]
+        envFrom:
+          - configMapRef:
+              name: {{ .Values.db_name }}-cm
+        ports:
+        - containerPort: 3306
+          name: {{ .Values.db_name }}
+          protocol: TCP
+        volumeMounts:
+        - name: data-volume
+          mountPath: /var/lib/mysql
+        resources:
+          requests:
+            memory: "{{ .Values.db_memory_request }}"
+            cpu: "{{ .Values.db_cpu_request }}"
+          limits:
+            memory: "{{ .Values.db_memory_limit }}"
+            cpu: "{{ .Values.db_cpu_limit }}"
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: {{ .Values.db_name }}-pvc
