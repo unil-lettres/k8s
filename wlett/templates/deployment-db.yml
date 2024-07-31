@@ -27,6 +27,9 @@ spec:
         - name: data-volume
           mountPath: /var/lib/mysql
           subPath: db
+        - name: data-volume
+          mountPath: /dumps
+          subPath: dumps
         resources:
           requests:
             memory: "{{ .Values.db_memory_request }}"
