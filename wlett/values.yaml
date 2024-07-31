@@ -15,7 +15,7 @@ db_memory_request: 100Mi
 db_cpu_request: 0.5
 db_memory_limit: 500Mi
 db_cpu_limit: 1
-db_storage_request: 5Gi
+db_storage_request: 10Gi
 ENV:
   mysql_database: bookstack
   mysql_user: user
@@ -40,3 +40,4 @@ ENV:
   file_upload_size_limit: 200
   recycle_bin_lifetime: 90
   ip_address_precision: 3
+  timezone: Europe/Zurich

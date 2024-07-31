@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Values.db_name }}-backup
+  namespace: {{ .Values.namespace }}
+spec:
+  timeZone: {{ .Values.ENV.timezone }}
+  schedule: "0 2 * * *"  # Runs daily at 2 AM
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: db-backup
+            image: mysql:{{ .Values.db_image_tag }}
+            envFrom:
+            - configMapRef:
+                name: {{ .Values.db_name }}-backup-cm
+            command: ["/bin/sh", "-c"]
+            args:
+            - |
+              find /dumps -type f -mtime +30 -exec rm {} \; && \
+              mysqldump -h $$MYSQL_HOST -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE > /dumps/$(date +\%F).sql
+            volumeMounts:
+            - name: data-volume
+              mountPath: /dumps
+              subPath: dumps
+          restartPolicy: OnFailure
+          volumes:
+          - name: data-volume
+            persistentVolumeClaim:
+              claimName: {{ .Values.db_name }}-pvc

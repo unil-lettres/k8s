@@ -13,7 +13,7 @@ data:
   APP_DEBUG: "false"
   APP_KEY: "{{ .Values.ENV.app_key }}"
   APP_URL: "{{ .Values.ENV.app_url }}"
-  APP_TIMEZONE: "Europe/Zurich"
+  APP_TIMEZONE: "{{ .Values.ENV.timezone }}"
   AUTH_METHOD: "{{ .Values.ENV.auth_method }}"
   LDAP_SERVER: "{{ .Values.ENV.ldap_server }}"
   LDAP_BASE_DN: "{{ .Values.ENV.ldap_base_dn }}"
