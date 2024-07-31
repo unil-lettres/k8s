@@ -9,6 +9,6 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Validate
-      uses: nlamirault/helm-kubeconform-action@v0.1.0
+      uses: nlamirault/helm-kubeconform-action@v0.2.0
       with:
         charts: ./
