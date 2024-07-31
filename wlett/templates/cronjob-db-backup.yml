@@ -20,7 +20,7 @@ spec:
             args:
             - |
               find /dumps -type f -mtime +30 -exec rm {} \; && \
-              mysqldump -h $$MYSQL_HOST -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE > /dumps/$(date +\%F).sql
+              mysqldump -h $$MYSQL_HOST -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE > /dumps/$(date +\%Y\%m\%d\%H\%M\%S).sql
             volumeMounts:
             - name: data-volume
               mountPath: /dumps
