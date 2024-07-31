@@ -13,7 +13,7 @@ db_name: bookstack-mysql
 db_image_tag: latest
 db_memory_request: 100Mi
 db_cpu_request: 0.5
-db_memory_limit: 500Mi
+db_memory_limit: 1000Mi
 db_cpu_limit: 1
 db_storage_request: 10Gi
 ENV:
