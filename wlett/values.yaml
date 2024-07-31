@@ -31,7 +31,7 @@ ENV:
   ldap_user_filter: my.ldap.user.filter
   mail_mailer: smtp
   mail_host: my.smtp.host
-  mail_port: 1025
+  mail_port: 25
   mail_user: null
   mail_password: null
   mail_encryption: null
