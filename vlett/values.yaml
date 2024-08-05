@@ -1,6 +1,6 @@
 namespace: vlett
 app_name: vaultwarden
-replicas: 1
+volume_name: data-volume
 image_tag: latest
 ingress_host_cluster: my.host.com
 ingress_host_alias: my.host.com
