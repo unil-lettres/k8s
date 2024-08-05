@@ -7,6 +7,7 @@ app_cpu_request: 0.5
 app_memory_limit: 500Mi
 app_cpu_limit: 1
 app_storage_request: 30Gi
+app_volume_name: data-volume
 app_ingress_host_cluster: my.host.com
 app_ingress_host_alias: my.host.com
 db_name: bookstack-mysql
@@ -16,6 +17,7 @@ db_cpu_request: 0.5
 db_memory_limit: 1000Mi
 db_cpu_limit: 1
 db_storage_request: 10Gi
+db_volume_name: data-volume
 ENV:
   mysql_database: bookstack
   mysql_user: user

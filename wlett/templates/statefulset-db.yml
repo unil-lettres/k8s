@@ -25,10 +25,10 @@ spec:
           name: {{ .Values.db_name }}
           protocol: TCP
         volumeMounts:
-        - name: data-volume
+        - name: {{ .Values.db_volume_name }}
           mountPath: /var/lib/mysql
           subPath: db
-        - name: data-volume
+        - name: {{ .Values.db_volume_name }}
           mountPath: /dumps
           subPath: dumps
         resources:
@@ -40,7 +40,7 @@ spec:
             cpu: "{{ .Values.db_cpu_limit }}"
   volumeClaimTemplates:
     - metadata:
-        name: data-volume
+        name: {{ .Values.db_volume_name }}
         namespace: {{ .Values.namespace }}
       spec:
         accessModes:

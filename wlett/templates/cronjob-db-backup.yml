@@ -24,11 +24,11 @@ spec:
               find /dumps -type f -mtime +30 -exec rm {} \; && \
               mysqldump -h $$MYSQL_HOST -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE > /dumps/$(date +\%Y\%m\%d\%H\%M\%S).sql
             volumeMounts:
-            - name: data-volume
+            - name: {{ .Values.db_volume_name }}
               mountPath: /dumps
               subPath: dumps
           restartPolicy: OnFailure
           volumes:
-          - name: data-volume
+          - name: {{ .Values.db_volume_name }}
             persistentVolumeClaim:
-              claimName: {{ .Values.db_name }}-0
+              claimName: {{ .Values.db_volume_name }}-{{ .Values.db_name }}-0

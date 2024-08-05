@@ -35,13 +35,13 @@ spec:
           name: {{ .Values.app_name }}
           protocol: TCP
         volumeMounts:
-        - name: data-volume
+        - name: {{ .Values.app_volume_name }}
           mountPath: /var/www/bookstack/public/uploads
           subPath: public-uploads
-        - name: data-volume
+        - name: {{ .Values.app_volume_name }}
           mountPath: /var/www/bookstack/storage/uploads
           subPath: storage-uploads
-        - name: data-volume
+        - name: {{ .Values.app_volume_name }}
           mountPath: /var/www/bookstack/storage/logs
           subPath: storage-logs
         resources:
@@ -52,6 +52,6 @@ spec:
             memory: "{{ .Values.app_memory_limit }}"
             cpu: "{{ .Values.app_cpu_limit }}"
       volumes:
-      - name: data-volume
+      - name: {{ .Values.app_volume_name }}
         persistentVolumeClaim:
           claimName: {{ .Values.app_name }}-pvc
