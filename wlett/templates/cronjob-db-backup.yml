@@ -31,4 +31,4 @@ spec:
           volumes:
           - name: data-volume
             persistentVolumeClaim:
-              claimName: {{ .Values.db_name }}-pvc
+              claimName: {{ .Values.db_name }}-0
