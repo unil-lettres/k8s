@@ -6,6 +6,7 @@ metadata:
   name: {{ .Values.db_name }}-svc
   namespace: {{ .Values.namespace }}
 spec:
+  clusterIP: None
   ports:
   - name: "{{ .Values.db_name }}"
     port: 3306
@@ -13,6 +14,3 @@ spec:
     targetPort: 3306
   selector:
     app: {{ .Values.db_name }}
-  type: ClusterIP
-status:
-  loadBalancer: {}

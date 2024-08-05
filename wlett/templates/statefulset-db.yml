@@ -1,9 +1,10 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ .Values.db_name }}
   namespace: {{ .Values.namespace }}
 spec:
+  serviceName: "{{ .Values.db_name }}-svc"
   replicas: 1
   selector:
     matchLabels:
@@ -37,7 +38,13 @@ spec:
           limits:
             memory: "{{ .Values.db_memory_limit }}"
             cpu: "{{ .Values.db_cpu_limit }}"
-      volumes:
-      - name: data-volume
-        persistentVolumeClaim:
-          claimName: {{ .Values.db_name }}-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: data-volume
+        namespace: {{ .Values.namespace }}
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.db_storage_request }}
