@@ -7,7 +7,7 @@ spec:
   timeZone: {{ .Values.ENV.timezone }}
   schedule: "0 2 * * *"  # Runs daily at 2 AM
   successfulJobsHistoryLimit: 0
-  failedJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 0
   jobTemplate:
     spec:
       template:
