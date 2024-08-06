@@ -34,11 +34,21 @@ jobs:
             echo "Processing Helm chart in $chart_dir"
             mkdir -p "rendered_templates/$chart_dir"
           
-            # Render Helm templates and validate
+            # Render Helm templates
             echo "Rendering templates for $chart_dir"
             helm template "$chart_dir" --output-dir "rendered_templates/$chart_dir"
+            if [ $? -ne 0 ]; then
+              echo "Helm template rendering failed for $chart_dir"
+              exit 1
+            fi
+          
+            # Validate rendered templates with kubeconform
             echo "Validating rendered templates for $chart_dir"
-            find "rendered_templates/$chart_dir" -name '*.yaml' -exec kubeconform -strict {} +
+            find "rendered_templates/$chart_dir" -name '*.yaml' -exec kubeconform --strict --verbose {} +
+            if [ $? -ne 0 ]; then
+              echo "kubeconform validation failed for $chart_dir"
+              exit 1
+            fi
           done
 
       - name: Lint all Helm charts
@@ -49,4 +59,8 @@ jobs:
           find . -name 'Chart.yaml' -exec dirname {} \; | while read -r chart_dir; do
             echo "Linting Helm chart in $chart_dir"
             helm lint "$chart_dir"
+            if [ $? -ne 0 ]; then
+              echo "Helm lint failed for $chart_dir"
+              exit 1
+            fi
           done
