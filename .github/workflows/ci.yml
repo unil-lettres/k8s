@@ -1,0 +1,43 @@
+name: ci
+on: [push, pull_request]
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Kubernetes tools
+        uses: azure/setup-kubectl@v4
+        with:
+          version: 'latest'
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: 'latest'
+
+      - name: Install kubeconform
+        run: |
+          curl -sLO https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz
+          tar -xzf kubeconform-linux-amd64.tar.gz
+          sudo mv kubeconform /usr/local/bin/kubeconform
+          kubeconform --version
+
+      - name: Render and validate all Helm charts
+        run: |
+          # Find all Helm chart directories and process each one
+          find . -name 'Chart.yaml' -exec dirname {} \; | while read chart_dir; do
+            echo "Processing Helm chart in $chart_dir"
+            mkdir -p rendered_templates/$chart_dir
+            helm template $chart_dir --output-dir rendered_templates/$chart_dir
+            find rendered_templates/$chart_dir -name '*.yaml' -exec kubeconform -strict {} +
+          done
+
+      - name: Lint all Helm charts
+        run: |
+          find . -name 'Chart.yaml' -exec dirname {} \; | while read chart_dir; do
+            echo "Linting Helm chart in $chart_dir"
+            helm lint $chart_dir
+          done

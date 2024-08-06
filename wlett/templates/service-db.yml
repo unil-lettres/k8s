@@ -6,7 +6,7 @@ metadata:
   name: {{ .Values.db_name }}-svc
   namespace: {{ .Values.namespace }}
 spec:
-  clusterIP: None
+  clusterIP: None # Headless
   ports:
   - name: "{{ .Values.db_name }}"
     port: 3306
