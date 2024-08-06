@@ -1,6 +1,14 @@
 apiVersion: apps/v1
 kind: StatefulSet
-
+metadata:
+  name: {{ .Values.db_name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  serviceName: "{{ .Values.db_n ame }}-svc"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.db_name }}
   template:
     metadata:
       labels:
