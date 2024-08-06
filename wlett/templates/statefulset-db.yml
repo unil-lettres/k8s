@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.db_name }}
   namespace: {{ .Values.namespace }}
 spec:
-  serviceName: "{{ .Values.db_n ame }}-svc"
+  serviceName: "{{ .Values.db_name }}-svc"
   replicas: 1
   selector:
     matchLabels:
