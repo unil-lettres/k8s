@@ -23,7 +23,7 @@ jobs:
           curl -sLO https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz
           tar -xzf kubeconform-linux-amd64.tar.gz
           sudo mv kubeconform /usr/local/bin/kubeconform
-          kubeconform --version
+          kubeconform -v
 
       - name: Render and validate all Helm charts
         run: |
