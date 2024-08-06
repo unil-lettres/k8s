@@ -28,17 +28,16 @@ jobs:
       - name: Render and validate all Helm charts
         run: |
           # Find all Helm chart directories and process each one
-          set -e
           find . -name 'Chart.yaml' -exec dirname {} \; | while read chart_dir; do
             echo "Processing Helm chart in $chart_dir"
             mkdir -p rendered_templates/$chart_dir
             helm template $chart_dir --output-dir rendered_templates/$chart_dir
             find rendered_templates/$chart_dir -name '*.yaml' -exec kubeconform -strict {} +
           done
+        continue-on-error: false
 
       - name: Lint all Helm charts
         run: |
-          set -e
           find . -name 'Chart.yaml' -exec dirname {} \; | while read chart_dir; do
             echo "Linting Helm chart in $chart_dir"
             helm lint $chart_dir
