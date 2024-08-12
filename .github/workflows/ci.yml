@@ -1,5 +1,11 @@
 name: ci
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - "development"
+      - "main"
+env:
+  KUBECONFORM_TARGET_VERSION: 1.28.0
 
 jobs:
   validation:
@@ -44,7 +50,7 @@ jobs:
           
             # Validate rendered templates with kubeconform
             echo "Validating rendered templates for $chart_dir"
-            find "rendered_templates/$chart_dir" -name '*.yaml' -exec kubeconform --strict --verbose {} +
+            find "rendered_templates/$chart_dir" -name '*.yaml' -exec kubeconform -kubernetes-version ${KUBECONFORM_TARGET_VERSION} --strict --verbose {} +
             if [ $? -ne 0 ]; then
               echo "kubeconform validation failed for $chart_dir"
               exit 1
