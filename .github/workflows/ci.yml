@@ -5,7 +5,7 @@ on:
       - "development"
       - "main"
 env:
-  KUBECONFORM_TARGET_VERSION: 1.28.0
+  KUBECONFORM_TARGET_VERSION: 1.233333338.0
 
 jobs:
   validation:
