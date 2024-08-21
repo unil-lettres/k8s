@@ -30,7 +30,7 @@ data:
   MAIL_USERNAME: "{{ .Values.ENV.mail_user }}"
   MAIL_PASSWORD: "{{ .Values.ENV.mail_password }}"
   MAIL_ENCRYPTION: "{{ .Values.ENV.mail_encryption }}"
-  MAIL_FROM_ADDRESS: "{{ .Values.ENV.mail_from }}"
+  MAIL_FROM: "{{ .Values.ENV.mail_from }}"
   MAIL_FROM_NAME: "{{ .Values.ENV.mail_from_name }}"
   STORAGE_TYPE: "local"
   CACHE_DRIVER: "file"
