@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app_name }}-cm
+  namespace: {{ .Values.namespace }}
+data:
+  DB_CONNECTION: "mysql"
+  DB_HOST: "{{ .Values.db_name }}-svc"
+  DB_PORT: "3306"
+  DB_DATABASE: "{{ .Values.ENV.mysql_database }}"
+  DB_USERNAME: "{{ .Values.ENV.mysql_user }}"
+  DB_PASSWORD: "{{ .Values.ENV.mysql_password }}"
+  DB_PREFIX: "null"
+  DB_DUMP_PATH: "/usr/bin"
+  DB_CHARSET: "utf8mb4"
+  DB_COLLATION: "utf8mb4_unicode_ci"
+  DB_SANITIZE_BY_DEFAULT: "false"
+  APP_ENV: "production"
+  APP_DEBUG: "false"
+  APP_KEY: "{{ .Values.ENV.app_key }}"
+  APP_URL: "{{ .Values.ENV.app_url }}"
+  APP_TIMEZONE: "{{ .Values.ENV.timezone }}"
+  APP_LOCALE: "{{ .Values.ENV.app_locale }}"
+  MAX_RESULTS: "{{ .Values.ENV.max_results }}"
+  MAIL_MAILER: "{{ .Values.ENV.mail_mailer }}"
+  MAIL_HOST: "{{ .Values.ENV.mail_host }}"
+  MAIL_PORT: "{{ .Values.ENV.mail_port }}"
+  MAIL_USERNAME: "{{ .Values.ENV.mail_user }}"
+  MAIL_PASSWORD: "{{ .Values.ENV.mail_password }}"
+  MAIL_FROM_ADDR: "{{ .Values.ENV.mail_from_addr }}"
+  MAIL_FROM_NAME: "{{ .Values.ENV.mail_from_name }}"
+  MAIL_REPLYTO_ADDR: "{{ .Values.ENV.mail_replyto_addr }}"
+  MAIL_REPLYTO_NAME: "{{ .Values.ENV.mail_replyto_name }}"
+  MAIL_AUTO_EMBED_METHOD: "attachment"
+  MAIL_TLS_VERIFY_PEER: "true"
+  PRIVATE_FILESYSTEM_DISK: "local"
+  PUBLIC_FILESYSTEM_DISK: "local_public"
+  IMAGE_LIB: "gd"

@@ -1,0 +1,4 @@
+apiVersion: v2
+name: helm-elett
+description: Helm chart for Snipe-IT
+version: 1.0.0
