@@ -26,7 +26,7 @@ spec:
           - --verbose
       containers:
       - name: {{ .Values.app_name }}
-        image: unillett/bookstack:{{ .Values.app_image_tag }}
+        image: "unillett/bookstack:{{ .Values.app_image_tag }}"
         envFrom:
           - configMapRef:
               name: {{ .Values.app_name }}-cm
