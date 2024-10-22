@@ -1,0 +1,4 @@
+apiVersion: v2
+name: helm-training
+description: Helm chart for Training
+version: 1.0.0
