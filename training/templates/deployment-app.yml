@@ -36,17 +36,8 @@ spec:
           mountPath: /var/www/training/storage/app/public/uploads
           subPath: public-uploads
         - name: {{ .Values.app_volume_name }}
-          mountPath: /etc/shibboleth/shibboleth2.xml
-          subPath: shibboleth-shibboleth2.xml
-        - name: {{ .Values.app_volume_name }}
-          mountPath: /etc/shibboleth/SWITCHaaiRootCA.crt.pem
-          subPath: shibboleth-SWITCHaaiRootCA.crt.pem
-        - name: {{ .Values.app_volume_name }}
-          mountPath: /etc/shibboleth/sp-key.pem
-          subPath: shibboleth-sp-key.pem
-        - name: {{ .Values.app_volume_name }}
-          mountPath: /etc/shibboleth/sp-cert.pem
-          subPath: shibboleth-sp-cert.pem
+          mountPath: /etc/shibboleth
+          subPath: shibboleth-config
         - name: {{ .Values.app_volume_name }}
           mountPath: /var/www/training/storage/logs
           subPath: storage-logs
