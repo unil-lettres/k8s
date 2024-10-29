@@ -36,6 +36,7 @@ ENV:
   mail_encryption: null
   mail_from_address: dev@localhost.ch
   mail_from_name: Webmaster
+  log_channel: stack
   shib_hostname: null
   shib_contact: null
   bugsnag_api_key: null
