@@ -42,6 +42,10 @@ spec:
         - name: {{ .Values.app_volume_name }}
           mountPath: /var/www/training/storage/logs
           subPath: storage-logs
+        lifecycle:
+          postStart:
+            exec:
+              command: [ "/bin/sh", "-c", "php artisan bugsnag:deploy" ]
         resources:
           requests:
             memory: "{{ .Values.app_memory_request }}"
