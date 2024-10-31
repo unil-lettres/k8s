@@ -2,9 +2,9 @@ namespace: training
 app_name: training-app
 app_replicas: 1
 app_image_tag: latest
-app_memory_request: 100Mi
+app_memory_request: 500Mi
 app_cpu_request: 0.5
-app_memory_limit: 500Mi
+app_memory_limit: 2000Mi
 app_cpu_limit: 1
 app_storage_request: 30Gi
 app_volume_name: data-volume
