@@ -12,7 +12,7 @@ data:
   DB_PASSWORD: "{{ .Values.ENV.mysql_password }}"
   APP_NAME: "{{ .Values.ENV.app_name }}"
   APP_ENV: "{{ .Values.ENV.app_env }}"
-  APP_DEBUG: "true"
+  APP_DEBUG: "false"
   APP_KEY: "{{ .Values.ENV.app_key }}"
   APP_URL: "{{ .Values.ENV.app_url }}"
   APP_TIMEZONE: "{{ .Values.ENV.timezone }}"
