@@ -13,6 +13,9 @@ spec:
       labels:
         app: {{ .Values.app_name }}
     spec:
+      securityContext:
+        runAsUser: 33
+        fsGroup: 33
       initContainers:
       - name: wait-for
         image: ghcr.io/patrickdappollonio/wait-for:latest
