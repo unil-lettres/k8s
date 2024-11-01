@@ -23,7 +23,7 @@ spec:
           - --verbose
       containers:
       - name: {{ .Values.app_name }}
-        image: "docker.io/unillett/training:{{ .Values.app_image_tag }}"
+        image: "docker-dockerio-remotes/unillett/training:{{ .Values.app_image_tag }}"
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
