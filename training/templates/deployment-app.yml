@@ -45,7 +45,7 @@ spec:
         lifecycle:
           postStart:
             exec:
-              command: [ "/bin/sh", "-c", "php artisan bugsnag:deploy" ]
+              command: [ "/bin/sh", "-c", "php artisan bugsnag:deploy && chown -R www-data:www-data /var/www/training/storage/app/public/uploads && chown -R www-data:www-data storage/logs" ]
         resources:
           requests:
             memory: "{{ .Values.app_memory_request }}"
