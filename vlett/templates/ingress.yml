@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: vaultwarden-ingress
   namespace: {{ .Values.namespace }}
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
 spec:
  rules:
   - host: {{ .Values.ingress_host_cluster }}
