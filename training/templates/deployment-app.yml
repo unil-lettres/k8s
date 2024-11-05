@@ -23,7 +23,7 @@ spec:
           - --verbose
       containers:
       - name: {{ .Values.app_name }}
-        image: "docker.io/unillett/training:{{ .Values.app_image_tag }}"
+        image: "unillett/training:{{ .Values.app_image_tag }}"
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
@@ -34,7 +34,7 @@ spec:
           protocol: TCP
         volumeMounts:
         - name: {{ .Values.app_volume_name }}
-          mountPath: /var/www/training/storage/app/public/uploads
+          mountPath: /var/www/training/storage/app/public
           subPath: public-uploads
         - name: {{ .Values.app_volume_name }}
           mountPath: /etc/shibboleth
@@ -45,7 +45,7 @@ spec:
         lifecycle:
           postStart:
             exec:
-              command: [ "/bin/sh", "-c", "php artisan bugsnag:deploy && chown -R www-data:www-data /var/www/training/storage/app/public/uploads && chown -R www-data:www-data storage/logs" ]
+              command: ["/bin/sh", "-c", "/var/www/training/k8s-poststart.sh"]
         resources:
           requests:
             memory: "{{ .Values.app_memory_request }}"
