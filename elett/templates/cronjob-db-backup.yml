@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.namespace }}
 spec:
   timeZone: {{ .Values.ENV.timezone }}
-  schedule: "0 2 * * *"  # Runs daily at 2 AM
+  schedule: "0 1 * * *"  # Runs daily at 1 AM
   successfulJobsHistoryLimit: 0
   failedJobsHistoryLimit: 1
   jobTemplate:
