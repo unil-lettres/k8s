@@ -14,7 +14,7 @@ spec:
         spec:
           containers:
             - name: db-backup
-              image: "docker.io/mariadb:{{ .Values.db_image_tag }}"
+              image: "mariadb:{{ .Values.db_image_tag }}"
               envFrom:
                 - configMapRef:
                     name: {{ .Values.db_name }}-backup-cm

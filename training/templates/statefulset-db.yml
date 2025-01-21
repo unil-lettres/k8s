@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.db_name }}
-        image: "docker.io/mariadb:{{ .Values.db_image_tag }}"
+        image: "mariadb:{{ .Values.db_image_tag }}"
         envFrom:
           - configMapRef:
               name: {{ .Values.db_name }}-cm
