@@ -15,7 +15,7 @@ spec:
     spec:
       initContainers:
       - name: wait-for
-        image: ghcr.io/patrickdappollonio/wait-for:latest
+        image: "docker.io/ghcr.io/patrickdappollonio/wait-for:latest"
         command:
           - /wait-for
         args:
@@ -23,7 +23,7 @@ spec:
           - --verbose
       containers:
       - name: {{ .Values.app_name }}
-        image: "unillett/training:{{ .Values.app_image_tag }}"
+        image: "docker.io/unillett/training:{{ .Values.app_image_tag }}"
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
