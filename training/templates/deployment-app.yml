@@ -15,7 +15,7 @@ spec:
     spec:
       initContainers:
       - name: wait-for
-        image: "docker.io/ghcr.io/patrickdappollonio/wait-for:latest"
+        image: "ghcr.io/patrickdappollonio/wait-for:latest"
         command:
           - /wait-for
         args:
