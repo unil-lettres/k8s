@@ -1,0 +1,4 @@
+apiVersion: v2
+name: helm-impact
+description: Helm chart for Impact
+version: 1.0.0
