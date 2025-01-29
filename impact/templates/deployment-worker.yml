@@ -21,7 +21,7 @@ spec:
         args:
           - --host="{{ .Values.db_name }}-svc:3306"
           - --host="{{ .Values.app_name }}-svc:80"
-          - --timeout 300s
+          - --timeout=300s
           - --verbose
       containers:
       - name: {{ .Values.worker_name }}
