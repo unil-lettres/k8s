@@ -50,17 +50,17 @@ ENV:
   bugsnag_api_key: null
   moodle_url: null
   moodle_token: null
-  moodle_sync_timeout: null
+  moodle_sync_timeout: 600
   switch_user: null
   switch_password: null
   switch_endpoint: null
   switch_api_version: null
-  pagination_per: null
-  user_validity: null
-  user_account_expiring: null
-  video_width: null
-  video_height: null
-  video_extension: null
-  audio_extension: null
-  file_timeout: null
-  file_update: null
+  pagination_per: 25
+  user_validity: 12
+  user_account_expiring: 15
+  video_width: 640
+  video_height: 480
+  video_extension: mp4
+  audio_extension: mp3
+  file_timeout: 3600
+  file_update: 10
