@@ -33,6 +33,7 @@ data:
   BROADCAST_CONNECTION: "log"
   CACHE_STORE: "database"
   QUEUE_CONNECTION: "database"
+  DB_QUEUE_RETRY_AFTER: "{{ .Values.ENV.file_timeout }}"
   SESSION_DRIVER: "file"
   SESSION_LIFETIME: "120"
   SESSION_ENCRYPT: "false"
