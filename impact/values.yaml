@@ -11,12 +11,14 @@ app_volume_name: data-volume
 app_ingress_host_cluster: my.host.com
 app_ingress_host_alias: my.host.com
 worker_name: impact-worker
-worker_replicas: 1
+worker_min_replicas: 1
+worker_max_replicas: 5
 worker_image_tag: worker-latest
 worker_memory_request: 500Mi
 worker_cpu_request: 0.25
 worker_memory_limit: 1000Mi
 worker_cpu_limit: 1
+hpa_average_utilization: 30
 db_name: impact-mysql
 db_image_tag: latest
 db_memory_request: 300Mi
