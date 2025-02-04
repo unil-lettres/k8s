@@ -18,7 +18,7 @@ worker_memory_request: 500Mi
 worker_cpu_request: 0.25
 worker_memory_limit: 1000Mi
 worker_cpu_limit: 1
-hpa_average_value: 500m # 0.5 cores
+hpa_average_utilization: 70
 hpa_scaleup_stabilization: 10
 hpa_scaledown_stabilization: 60
 db_name: impact-mysql
