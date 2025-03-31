@@ -52,7 +52,9 @@ ENV:
   shib_hostname: null
   shib_contact: null
   bugsnag_api_key: null
-  moodle_url: null
+  moodle_base: null
+  moodle_api: null
+  moodle_course: null
   moodle_token: null
   moodle_sync_timeout: 600
   switch_user: null
