@@ -43,6 +43,7 @@ data:
   SHIB_CONTACT: "{{ .Values.ENV.shib_contact }}"
   BUGSNAG_API_KEY: "{{ .Values.ENV.bugsnag_api_key }}"
   BUGSNAG_APP_VERSION: "{{ .Values.app_image_tag }}"
+  BUGSNAG_LOGGER_LEVEL: "{{ .Values.ENV.bugsnag_logger_level }}"
   BUGSNAG_NOTIFY_RELEASE_STAGES: "staging,production"
   TELESCOPE_ENABLED: "false"
   MOODLE_BASE: "{{ .Values.ENV.moodle_base }}"

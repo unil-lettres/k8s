@@ -52,6 +52,7 @@ ENV:
   shib_hostname: null
   shib_contact: null
   bugsnag_api_key: null
+  bugsnag_logger_level: warning
   moodle_base: null
   moodle_api: null
   moodle_course: null
