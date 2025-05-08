@@ -23,7 +23,7 @@ spec:
           - --verbose
       containers:
       - name: {{ .Values.app_name }}
-        image: "grokability/snipe-it:{{ .Values.app_image_tag }}"
+        image: "snipe/snipe-it{{ .Values.app_image_tag }}"
         envFrom:
           - configMapRef:
               name: {{ .Values.app_name }}-cm
