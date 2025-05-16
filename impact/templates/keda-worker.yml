@@ -37,6 +37,6 @@ spec:
     authenticationRef:
       name: keda-trigger-auth-mysql
   - type: cpu
-      metadata:
-        type: Utilization
-        value: "{{ .Values.hpa_average_utilization }}"
+    metadata:
+      type: Utilization
+      value: "{{ .Values.hpa_average_utilization }}"
