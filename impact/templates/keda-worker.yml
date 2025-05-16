@@ -9,7 +9,7 @@ spec:
   triggers:
   - type: mysql
     metadata:
-      host: "{{ .Values.db_name }}-svc"
+      host: "10.42.3.3"
       port: "3306"
       dbName: "{{ .Values.ENV.mysql_database }}"
       username: "{{ .Values.ENV.mysql_user }}"
