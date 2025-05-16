@@ -9,8 +9,10 @@ spec:
   triggers:
   - type: mysql
     metadata:
-      host: "{{ .Values.ENV.mysql_database }}"
-      userName: "{{ .Values.ENV.mysql_user }}"
+      host: "{{ .Values.db_name }}-svc"
+      port: "3306"
+      dbName: "{{ .Values.ENV.mysql_database }}"
+      username: "{{ .Values.ENV.mysql_user }}"
       password: "{{ .Values.ENV.mysql_password }}"
       queryValue: "{{ .Values.hpa_query_value }}"
       activationQueryValue: "{{ .Values.hpa_activation_value }}"
