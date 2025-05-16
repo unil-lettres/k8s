@@ -1,20 +1,22 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secrets
+  namespace: {{ .Values.namespace }}
+type: Opaque
+data:
+  mysql_conn_str: "{{ .Values.ENV.mysql_password }}"
+---
 apiVersion: keda.sh/v1alpha1
 kind: TriggerAuthentication
 metadata:
   name: keda-trigger-auth-mysql
   namespace: {{ .Values.namespace }}
 spec:
-  env:
-    - parameter: host
-      name: "10.42.3.3"
-    - parameter: port
-      name: "3306"
-    - parameter: dbName
-      name: "{{ .Values.ENV.mysql_database }}"
-    - parameter: username
-      name: "{{ .Values.ENV.mysql_user }}"
-    - parameter: password
-      name: "{{ .Values.ENV.mysql_password }}"
+  secretTargetRef:
+  - parameter: connectionString
+    name: mysql-secrets
+    key: mysql_conn_str
 ---
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
