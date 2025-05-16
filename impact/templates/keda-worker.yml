@@ -36,7 +36,3 @@ spec:
       query: "SELECT COUNT(*) AS count FROM cache_locks WHERE `key` LIKE '%ProcessFile%'"
     authenticationRef:
       name: keda-trigger-auth-mysql
-  - type: cpu
-    metadata:
-      type: Utilization
-      value: "{{ .Values.hpa_average_utilization }}"
