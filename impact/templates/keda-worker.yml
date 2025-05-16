@@ -26,6 +26,8 @@ metadata:
 spec:
   scaleTargetRef:
     name: {{ .Values.worker_name }}
+  minReplicaCount: 1
+  maxReplicaCount: 4
   triggers:
   - type: mysql
     metadata:
