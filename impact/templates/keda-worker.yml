@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.namespace }}
 type: Opaque
 data:
-  mysql_conn_str: "{{ .Values.ENV.mysql_password }}"
+  mysql_conn_str: "{{ .Values.ENV.mysql_conn_str }}"
 ---
 apiVersion: keda.sh/v1alpha1
 kind: TriggerAuthentication
