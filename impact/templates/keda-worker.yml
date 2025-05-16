@@ -26,8 +26,8 @@ metadata:
 spec:
   scaleTargetRef:
     name: {{ .Values.worker_name }}
-  minReplicaCount: 1
-  maxReplicaCount: 4
+  minReplicaCount: {{ .Values.worker_min_replicas }}
+  maxReplicaCount: {{ .Values.worker_max_replicas }}
   triggers:
   - type: mysql
     metadata:
@@ -36,3 +36,7 @@ spec:
       query: "SELECT COUNT(*) AS count FROM cache_locks WHERE `key` LIKE '%ProcessFile%'"
     authenticationRef:
       name: keda-trigger-auth-mysql
+  - type: cpu
+      metadata:
+        type: Utilization
+        value: "{{ .Values.hpa_average_utilization }}"
