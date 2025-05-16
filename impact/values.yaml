@@ -21,6 +21,8 @@ worker_cpu_limit: 1
 hpa_average_utilization: 70
 hpa_scaleup_stabilization: 20
 hpa_scaledown_stabilization: 60
+hpa_query_value: 1
+hpa_activation_value: 1
 db_name: impact-mysql
 db_image_tag: latest
 db_memory_request: 300Mi
