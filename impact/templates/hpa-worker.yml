@@ -1,33 +1,24 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysql-secrets
-  namespace: {{ .Values.namespace }}
-type: Opaque
-data:
-  mysql_conn_str: "{{ .Values.mysql_conn_str }}"
----
 apiVersion: keda.sh/v1alpha1
 kind: TriggerAuthentication
 metadata:
-  name: keda-trigger-auth-mysql
+  name: {{ .Values.namespace }}-keda-trigger-auth-mysql
   namespace: {{ .Values.namespace }}
 spec:
-  secretTargetRef:
+  env:
   - parameter: connectionString
-    name: mysql-secrets
-    key: mysql_conn_str
+    name: MYSQL_CONN_STR
 ---
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: {{ .Values.worker_name }}-keda-hpa
+  name: {{ .Values.worker_name }}-hpa
   namespace: {{ .Values.namespace }}
 spec:
   scaleTargetRef:
     name: {{ .Values.worker_name }}
   minReplicaCount: {{ .Values.worker_min_replicas }}
   maxReplicaCount: {{ .Values.worker_max_replicas }}
+  cooldownPeriod: {{ .Values.hpa_cooldown }}
   triggers:
   - type: mysql
     metadata:
@@ -35,4 +26,5 @@ spec:
       activationQueryValue: "{{ .Values.hpa_activation_value }}"
       query: "SELECT COUNT(*) AS count FROM cache_locks WHERE `key` LIKE '%ProcessFile%'"
     authenticationRef:
-      name: keda-trigger-auth-mysql
+      name: {{ .Values.namespace }}-keda-trigger-auth-mysql
+
