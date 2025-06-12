@@ -24,12 +24,12 @@ spec:
           - --verbose
       containers:
       - name: {{ .Values.worker_name }}
-        image: "unillett/impact:{{ .Values.worker_image_tag }}"
+        image: "unillett/impacttttttt:{{ .Values.worker_image_tag }}"
         imagePullPolicy: Always
         lifecycle:
           preStop:
             exec:
-              command: ["/bin/sh", "-c", "supervisorctl stop laravel-worker && sleep 20"]
+              command: ["/bin/sh", "-c", "supervisorctl stop laravel-worker && sleep 10"]
         envFrom:
           - configMapRef:
               name: {{ .Values.app_name }}-cm
