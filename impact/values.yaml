@@ -18,8 +18,6 @@ worker_memory_request: 500Mi
 worker_cpu_request: 0.25
 worker_memory_limit: 1000Mi
 worker_cpu_limit: 1
-#hpa_average_utilization: 50
-#hpa_scaledown_stabilization: 60
 hpa_query_value: 1
 hpa_activation_value: 0
 hpa_cooldown: 120
