@@ -24,7 +24,7 @@ spec:
           - --verbose
       containers:
       - name: {{ .Values.worker_name }}
-        image: "unillett/impacttttttt:{{ .Values.worker_image_tag }}"
+        image: "unillett/impact:{{ .Values.worker_image_tag }}"
         imagePullPolicy: Always
         lifecycle:
           preStop:
