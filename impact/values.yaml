@@ -19,7 +19,7 @@ worker_cpu_request: 0.25
 worker_memory_limit: 1000Mi
 worker_cpu_limit: 1
 hpa_query_value: 1
-hpa_activation_value: 1
+hpa_activation_value: 0
 hpa_cooldown: 120
 db_name: impact-mysql
 db_image_tag: latest
