@@ -29,7 +29,7 @@ spec:
         lifecycle:
           preStop:
             exec:
-              command: ["/bin/sh", "-c", "supervisorctl stop laravel-worker && sleep 10"]
+              command: ["/bin/sh", "-c", "supervisorctl stop laravel-worker && sleep 20"]
         envFrom:
           - configMapRef:
               name: {{ .Values.app_name }}-cm
