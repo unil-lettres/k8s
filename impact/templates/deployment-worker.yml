@@ -27,8 +27,12 @@ spec:
         image: "unillett/impact:{{ .Values.worker_image_tag }}"
         imagePullPolicy: Always
         lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "/var/www/impact/k8s-poststart.sh"]
           preStop:
             exec:
+              # Avoid pod early termination with worker hpa
               command: ["/bin/sh", "-c", "supervisorctl stop laravel-worker && sleep 10"]
         envFrom:
           - configMapRef:
@@ -40,10 +44,6 @@ spec:
         - name: {{ .Values.app_volume_name }}
           mountPath: /var/www/impact/storage/logs
           subPath: storage-logs
-        lifecycle:
-          postStart:
-            exec:
-              command: ["/bin/sh", "-c", "/var/www/impact/k8s-poststart.sh"]
         resources:
           requests:
             memory: "{{ .Values.worker_memory_request }}"
