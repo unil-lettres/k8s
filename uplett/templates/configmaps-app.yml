@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app_name }}-cm
+  namespace: {{ .Values.namespace }}
+data:
+  UPTIME_KUMA_DB_TYPE: "mariadb"
+  UPTIME_KUMA_DB_HOSTNAME: "{{ .Values.db_name }}-svc"
+  UPTIME_KUMA_DB_PORT: "3306"
+  UPTIME_KUMA_DB_NAME: "{{ .Values.ENV.mysql_database }}"
+  UPTIME_KUMA_DB_USERNAME: "{{ .Values.ENV.mysql_user }}"
+  UPTIME_KUMA_DB_PASSWORD: "{{ .Values.ENV.mysql_password }}"
+  UPTIME_KUMA_DISABLE_FRAME_SAMEORIGIN: "{{ .Values.ENV.disable_frame_sameorigin }}" 
+  UPTIME_KUMA_WS_ORIGIN_CHECK: "{{ .Values.ENV.origin_check }}" 

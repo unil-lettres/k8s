@@ -1,0 +1,4 @@
+apiVersion: v2
+name: helm-uplett
+description: Helm chart for Uptime Kuma
+version: 1.0.0

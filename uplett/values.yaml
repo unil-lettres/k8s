@@ -1,0 +1,27 @@
+namespace: uplett
+app_name: kuma-app
+app_replicas: 1
+app_image_tag: latest
+app_memory_request: 300Mi
+app_cpu_request: 0.5
+app_memory_limit: 1000Mi
+app_cpu_limit: 1
+app_storage_request: 20Gi
+app_volume_name: data-volume
+app_ingress_host_cluster: my.host.com
+app_ingress_host_alias: my.host.com
+db_name: kuma-mysql
+db_image_tag: latest
+db_memory_request: 500Mi
+db_cpu_request: 0.5
+db_memory_limit: 1000Mi
+db_cpu_limit: 1
+db_storage_request: 10Gi
+db_volume_name: data-volume
+ENV:
+  mysql_database: kuma
+  mysql_user: user
+  mysql_password: password
+  mysql_root_password: root
+  disable_frame_sameorigin: false
+  origin_check: cors-like

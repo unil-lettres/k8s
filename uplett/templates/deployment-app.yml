@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app_name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.app_replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app_name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app_name }}
+    spec:
+      initContainers:
+      - name: wait-for
+        image: ghcr.io/patrickdappollonio/wait-for:latest
+        command:
+          - /wait-for
+        args:
+          - --host="{{ .Values.db_name }}-svc:3306"
+          - --verbose
+      containers:
+      - name: {{ .Values.app_name }}
+        image: "louislam/uptime-kuma:{{ .Values.app_image_tag }}"
+        envFrom:
+          - configMapRef:
+              name: {{ .Values.app_name }}-cm
+        ports:
+        - containerPort: 3001
+          name: {{ .Values.app_name }}
+          protocol: TCP
+        volumeMounts:
+        - name: {{ .Values.app_volume_name }}
+          mountPath: /app/data
+          subPath: app-data
+        resources:
+          requests:
+            memory: "{{ .Values.app_memory_request }}"
+            cpu: "{{ .Values.app_cpu_request }}"
+          limits:
+            memory: "{{ .Values.app_memory_limit }}"
+            cpu: "{{ .Values.app_cpu_limit }}"
+      volumes:
+      - name: {{ .Values.app_volume_name }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.app_name }}-pvc
