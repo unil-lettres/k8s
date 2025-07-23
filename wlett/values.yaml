@@ -31,6 +31,9 @@ ENV:
   ldap_dn: my.ldap.dn
   ldap_pass: my.ldap.password
   ldap_user_filter: my.ldap.user.filter
+  ldap_user_to_groups: false
+  ldap_group_attribute: memberOf
+  ldap_remove_from_groups: false
   mail_mailer: smtp
   mail_host: my.smtp.host
   mail_port: 25
