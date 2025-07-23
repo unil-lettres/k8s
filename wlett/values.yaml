@@ -34,6 +34,7 @@ ENV:
   ldap_user_to_groups: false
   ldap_group_attribute: memberOf
   ldap_remove_from_groups: false
+  ldap_dump_user_groups: false
   mail_mailer: smtp
   mail_host: my.smtp.host
   mail_port: 25
