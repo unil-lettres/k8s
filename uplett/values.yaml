@@ -25,3 +25,4 @@ ENV:
   mysql_root_password: root
   disable_frame_sameorigin: false
   origin_check: cors-like
+  timezone: Europe/Zurich
