@@ -2,8 +2,8 @@ namespace: elett
 app_name: snipeit-app
 app_replicas: 1
 app_image_tag: latest
-app_memory_request: 300Mi
-app_cpu_request: 0.5
+app_memory_request: 400Mi
+app_cpu_request: 0.2
 app_memory_limit: 1000Mi
 app_cpu_limit: 1
 app_storage_request: 20Gi
@@ -13,7 +13,7 @@ app_ingress_host_alias: my.host.com
 db_name: snipeit-mysql
 db_image_tag: latest
 db_memory_request: 300Mi
-db_cpu_request: 0.5
+db_cpu_request: 0.2
 db_memory_limit: 1000Mi
 db_cpu_limit: 1
 db_storage_request: 10Gi

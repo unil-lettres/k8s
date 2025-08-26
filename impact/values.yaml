@@ -3,7 +3,7 @@ app_name: impact-app
 app_replicas: 1
 app_image_tag: latest
 app_memory_request: 500Mi
-app_cpu_request: 0.5
+app_cpu_request: 0.2
 app_memory_limit: 1000Mi
 app_cpu_limit: 1
 app_storage_request: 200Gi
@@ -15,7 +15,7 @@ worker_min_replicas: 1
 worker_max_replicas: 4
 worker_image_tag: worker-latest
 worker_memory_request: 500Mi
-worker_cpu_request: 0.25
+worker_cpu_request: 0.1
 worker_memory_limit: 1000Mi
 worker_cpu_limit: 1
 hpa_query_value: 1
@@ -23,8 +23,8 @@ hpa_activation_value: 0
 hpa_cooldown: 60
 db_name: impact-mysql
 db_image_tag: latest
-db_memory_request: 300Mi
-db_cpu_request: 0.5
+db_memory_request: 500Mi
+db_cpu_request: 0.2
 db_memory_limit: 1000Mi
 db_cpu_limit: 1
 db_storage_request: 20Gi

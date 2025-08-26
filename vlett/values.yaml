@@ -5,7 +5,7 @@ image_tag: latest
 ingress_host_cluster: my.host.com
 ingress_host_alias: my.host.com
 memory_request: 100Mi
-cpu_request: 0.3
+cpu_request: 0.1
 memory_limit: 500Mi
 cpu_limit: 1
 ENV:
