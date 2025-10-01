@@ -1,7 +1,6 @@
 namespace: impact
 app_name: impact-app
 app_replicas: 1
-app_image_tag: latest
 app_memory_request: 500Mi
 app_cpu_request: 0.2
 app_memory_limit: 1000Mi
@@ -13,7 +12,6 @@ app_ingress_host_alias: my.host.com
 worker_name: impact-worker
 worker_min_replicas: 1
 worker_max_replicas: 4
-worker_image_tag: worker-latest
 worker_memory_request: 500Mi
 worker_cpu_request: 0.1
 worker_memory_limit: 1000Mi

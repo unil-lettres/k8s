@@ -1,0 +1,2 @@
+app_image_tag: app-latest
+worker_image_tag: worker-latest
