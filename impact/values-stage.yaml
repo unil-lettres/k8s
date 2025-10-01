@@ -1,2 +1,2 @@
-app_image_tag: app-stage-latest
-worker_image_tag: worker-stage-latest
+app_image_tag: app-stage-b777e3c-20251001091652
+worker_image_tag: worker-stage-b777e3c-20251001091615
