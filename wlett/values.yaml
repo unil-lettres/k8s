@@ -1,7 +1,6 @@
 namespace: wlett
 app_name: bookstack-app
 app_replicas: 1
-app_image_tag: latest
 app_memory_request: 200Mi
 app_cpu_request: 0.2
 app_memory_limit: 1000Mi
