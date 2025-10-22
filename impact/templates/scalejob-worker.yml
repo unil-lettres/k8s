@@ -61,7 +61,7 @@ spec:
           - name: {{ .Values.app_volume_name }}
             persistentVolumeClaim:
               claimName: {{ .Values.app_name }}-pvc
-  pollingInterval: 10 # check queue every 10s
+  pollingInterval: 5 # check queue every 5s
   maxReplicaCount: {{ .Values.worker_max_replicas }}
   successfulJobsHistoryLimit: 0
   failedJobsHistoryLimit: 1
