@@ -12,6 +12,8 @@ spec:
       labels:
         app: {{ .Values.worker_name }}
     spec:
+      # Avoid pod early termination with worker hpa, should match supervisor stopwaitsecs
+      terminationGracePeriodSeconds: 3600
       initContainers:
       - name: wait-for
         image: "ghcr.io/patrickdappollonio/wait-for:latest"
