@@ -1,0 +1,75 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: {{ .Values.namespace }}-keda-trigger-auth-mysql
+  namespace: {{ .Values.namespace }}
+spec:
+  env:
+    - parameter: connectionString
+      name: MYSQL_CONN_STR
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledJob
+metadata:
+  name: {{ .Values.worker_name }}-scaledjob
+  namespace: {{ .Values.namespace }}
+spec:
+  jobTargetRef:
+    template:
+      spec:
+        initContainers:
+          - name: wait-for
+            image: "ghcr.io/patrickdappollonio/wait-for:latest"
+            command:
+              - /wait-for
+            args:
+              - --host="{{ .Values.db_name }}-svc:3306"
+              - --host="{{ .Values.app_name }}-svc:80"
+              - --timeout=300s
+              - --verbose
+        containers:
+          - name: {{ .Values.worker_name }}
+            image: "unillett/impact:{{ .Values.worker_image_tag }}"
+            imagePullPolicy: Always
+            lifecycle:
+              postStart:
+                exec:
+                  command: ["/bin/sh", "-c", "/var/www/impact/k8s-poststart.sh"]
+              preStop:
+                exec:
+                  command: ["/bin/sh", "-c", "echo '[preStop] Pod is terminating...'"]
+            command: ["php", "/var/www/impact/artisan", "queue:work", "--once", "--sleep=0", "--tries=2"]
+            envFrom:
+              - configMapRef:
+                  name: {{ .Values.app_name }}-cm
+            volumeMounts:
+              - name: {{ .Values.app_volume_name }}
+                mountPath: /var/www/impact/storage/app/public
+                subPath: public-uploads
+              - name: {{ .Values.app_volume_name }}
+                mountPath: /var/www/impact/storage/logs
+                subPath: storage-logs
+            resources:
+              requests:
+                memory: "{{ .Values.worker_memory_request }}"
+                cpu: "{{ .Values.worker_cpu_request }}"
+              limits:
+                memory: "{{ .Values.worker_memory_limit }}"
+                cpu: "{{ .Values.worker_cpu_limit }}"
+        restartPolicy: Never
+        volumes:
+          - name: {{ .Values.app_volume_name }}
+            persistentVolumeClaim:
+              claimName: {{ .Values.app_name }}-pvc
+  pollingInterval: 10 # check queue every 10s
+  maxReplicaCount: {{ .Values.worker_max_replicas }}
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 1
+  triggers:
+    - type: mysql
+      metadata:
+        queryValue: "{{ .Values.hpa_query_value }}"
+        activationQueryValue: "{{ .Values.hpa_activation_value }}"
+        query: "SELECT COUNT(*) AS count FROM cache_locks WHERE `key` LIKE '%ProcessFile%'"
+      authenticationRef:
+        name: {{ .Values.namespace }}-keda-trigger-auth-mysql
