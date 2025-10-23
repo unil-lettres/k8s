@@ -10,7 +10,6 @@ app_volume_name: data-volume
 app_ingress_host_cluster: my.host.com
 app_ingress_host_alias: my.host.com
 worker_name: impact-worker
-worker_min_replicas: 1
 worker_max_replicas: 4
 worker_memory_request: 500Mi
 worker_cpu_request: 0.1
