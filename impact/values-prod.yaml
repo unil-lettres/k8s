@@ -1,2 +1,2 @@
-app_image_tag: app-v1.7.1
-worker_image_tag: worker-v1.7.1
+app_image_tag: app-v1.8.0
+worker_image_tag: worker-v1.8.0
