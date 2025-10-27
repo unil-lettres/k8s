@@ -30,11 +30,6 @@ spec:
         envFrom:
           - configMapRef:
               name: {{ .Values.app_name }}-cm
-        env:
-        - name: POD_IMAGE
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.containers[0].image
         ports:
         - containerPort: 8080
           name: {{ .Values.app_name }}

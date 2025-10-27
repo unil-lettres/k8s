@@ -22,6 +22,7 @@ ENV:
   mysql_user: user
   mysql_password: password
   mysql_root_password: root
+  app_env: production
   app_key: SomeRandomStringWith32Characters
   app_url: https://my.domain.com
   auth_method: ldap
@@ -42,3 +43,4 @@ ENV:
   recycle_bin_lifetime: 90
   ip_address_precision: 3
   timezone: Europe/Zurich
+  bugsnag_api_key: null

@@ -36,3 +36,6 @@ data:
   FILE_UPLOAD_SIZE_LIMIT: "{{ .Values.ENV.file_upload_size_limit }}"
   RECYCLE_BIN_LIFETIME: "{{ .Values.ENV.recycle_bin_lifetime }}"
   IP_ADDRESS_PRECISION: "{{ .Values.ENV.ip_address_precision }}"
+  BUGSNAG_API_KEY: "{{ .Values.ENV.bugsnag_api_key }}"
+  BUGSNAG_APP_VERSION: "{{ .Values.app_image_tag }}"
+  BUGSNAG_ENV: {{ .Values.ENV.app_env }}"
