@@ -30,6 +30,11 @@ spec:
         envFrom:
           - configMapRef:
               name: {{ .Values.app_name }}-cm
+        env:
+        - name: POD_IMAGE
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.containers[0].image
         ports:
         - containerPort: 8080
           name: {{ .Values.app_name }}
@@ -44,6 +49,10 @@ spec:
         - name: {{ .Values.app_volume_name }}
           mountPath: /var/www/bookstack/storage/logs
           subPath: storage-logs
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "/var/www/bookstack/k8s-poststart.sh"]
         resources:
           requests:
             memory: "{{ .Values.app_memory_request }}"
