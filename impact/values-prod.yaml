@@ -1,2 +1,2 @@
-app_image_tag: app-v1.8.0
-worker_image_tag: worker-v1.8.0
+app_image_tag: app-v1.8.0-8aa61e0-20251027013633
+worker_image_tag: worker-v1.8.0-8aa61e0-20251027013629
