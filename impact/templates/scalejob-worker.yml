@@ -38,7 +38,8 @@ spec:
               preStop:
                 exec:
                   command: ["/bin/sh", "-c", "echo '[preStop] Pod is terminating...'"]
-            command: ["php", "/var/www/impact/artisan", "queue:work", "--once", "--sleep=0", "--tries=2"]
+            command: ["/bin/docker-entrypoint.sh"]
+            args: ["php", "/var/www/impact/artisan", "queue:work", "--once", "--sleep=0", "--tries=2"]
             envFrom:
               - configMapRef:
                   name: {{ .Values.app_name }}-cm
