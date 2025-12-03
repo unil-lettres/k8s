@@ -1,2 +1,2 @@
-app_image_tag: app-stage-xxx
-worker_image_tag: worker-stage-xxx
+app_image_tag: app-stage-3e7d650-20251203124021
+worker_image_tag: worker-stage-3e7d650-20251203124024
