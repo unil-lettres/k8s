@@ -1,0 +1,160 @@
+namespace: catima
+app_name: catima-app
+app_replicas: 1
+app_memory_request: 500Mi
+app_cpu_request: 0.5
+app_memory_limit: 1000Mi
+app_cpu_limit: 1
+app_storage_request: 500Gi
+app_volume_name: data-volume
+app_ingress_host_cluster: my.host.com
+app_ingress_host_alias: my.host.com
+worker_name: catima-worker
+worker_max_replicas: 4
+worker_memory_request: 500Mi
+worker_cpu_request: 0.25
+worker_memory_limit: 1000Mi
+worker_cpu_limit: 1
+hpa_cpu_target: 70
+hpa_memory_target: 80
+hpa_scale_down_stabilization: 300
+db_name: catima-postgres
+db_image_tag: latest
+db_memory_request: 600Mi
+db_cpu_request: 0.2
+db_memory_limit: 1000Mi
+db_cpu_limit: 1
+db_storage_request: 20Gi
+db_volume_name: data-volume
+cache_name: catima-redis
+cache_image_tag: latest
+cache_memory_request: 250Mi
+cache_cpu_request: 0.1
+cache_memory_limit: 500Mi
+cache_cpu_limit: 0.5
+cache_storage_request: 5Gi
+cache_volume_name: data-volume
+ENV:
+  rails_env: production
+  clue_override: null
+  secret_key_base: your-rails-secret-key-base
+  mail_smtp_address: my.smtp.host
+  mail_smtp_auth: 1
+  mail_smtp_username: null
+  mail_smtp_password: null
+  mail_smtp_port: 25
+  mail_smtp_domain: null
+  mail_sender: catima@example.com
+  postgres_db: catima
+  postgres_user: user
+  postgres_password: password
+  postgres_port: 5432
+  redis_port: 6379
+  redis_db: 0
+  doc_base_url: https://catima.github.io/userdoc
+  ahoy_enable_tracking: 1
+  ahoy_visits_validity: null # Defaut is 6 months
+  ahoy_events_validity: null # Defaut is 6 months
+  entry_logs_validity: null # Defaut is 4 months
+  api_logs_validity: null # Defaut is 4 months
+  maintenance_mode: 0
+  maintainer_ips: null
+  asset_host: https://catima-assets.example.com
+  domain: catima.example.com
+  protocol: https
+  bugsnag_api_key: your-bugsnag-api-key
+  recaptcha_site_key: your-recaptcha-site-key
+  recaptcha_secret_key: your-recaptcha-secret-key
+  devise_jwt_secret_key: your-devise-jwt-secret-key
+  file_max_upload_size: null # Defaut is 200MB
+  image_max_upload_size: null # Defaut is 15MB
+  exports_validity: null # Defaut is 7 days
+  zoom_level_distant: null # Defaut is 5
+  zoom_level_medium: null # Defaut is 10
+  zoom_level_close: null # Defaut is 15
+  polygon_color: null # Defaut is #9336af
+  polyline_color: null # Defaut is #000000
+  auth_facebook_app_id: null
+  auth_facebook_app_secret: null
+  auth_github_app_id: null
+  auth_github_app_secret: null
+  auth_shib_session_id: null
+  auth_shib_app_id: null
+  auth_shib_name: null
+  app_version: null
+  timezone: Europe/Zurich
+CONFIG:
+  domains:
+    - label: 'Youtube.com'
+      value: 'www.youtube.com'
+    - label: 'Youtube.*'
+      value: 'www.youtube.*'
+    - label: '*.Youtube'
+      value: '*.youtube.com'
+    - label: '*.Youtube.*'
+      value: '*.youtube.*'
+    - label: 'Vimeo'
+      value: 'www.vimeo.com'
+  geo_layers:
+    - label: 'OpenStreetMap'
+      value: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    - label: 'OpenTopoMap'
+      value: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
+      attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+  restricted_robots:
+    - 360Spider
+    - ADmantX
+    - AI2Bot
+    - Ai2Bot-Dolma
+    - Amazonbot
+    - Applebot
+    - Applebot-Extended
+    - BLEXBot
+    - Baiduspider
+    - Bytespider
+    - CCBot
+    - ChatGPT-User
+    - Claude-Web
+    - ClaudeBot
+    - Diffbot
+    - DuckAssistBot
+    - FacebookBot
+    - FriendlyCrawler
+    - GPTBot
+    - Google-Extended
+    - GoogleOther
+    - GoogleOther-Image
+    - GoogleOther-Video
+    - ICC-Crawler
+    - ISSCyberRiskCrawler
+    - ImagesiftBot
+    - Kangaroo Bot
+    - MJ12bot
+    - Mail.RU_Bot
+    - MegaIndex
+    - Meta-ExternalAgent
+    - Meta-ExternalFetcher
+    - OAI-SearchBot
+    - PanguBot
+    - PerplexityBot
+    - PetalBot
+    - Scrapy
+    - Seekport Crawler
+    - Sidetrade indexer bot
+    - Sogou inst spider
+    - Sogou web spider
+    - Timpibot
+    - VelenPublicWebCrawler
+    - Webzio-Extended
+    - Yisouspider
+    - YouBot
+    - anthropic-ai
+    - cohere-ai
+    - dotbot
+    - iaskspider/2.0
+    - img2dataset
+    - omgili
+    - omgilibot
+    - proximic
+    - psbot

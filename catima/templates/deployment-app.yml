@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app_name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.app_replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app_name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app_name }}
+    spec:
+      initContainers:
+      - name: wait-for
+        image: "ghcr.io/patrickdappollonio/wait-for:latest"
+        command:
+          - /wait-for
+        args:
+          - --host="{{ .Values.db_name }}-svc:5432"
+          - --host="{{ .Values.cache_name }}-svc:6379"
+          - --verbose
+      containers:
+      - name: {{ .Values.app_name }}
+        image: "unillett/catima:{{ .Values.app_image_tag }}"
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: {{ .Values.app_name }}-cm
+        ports:
+        - containerPort: 80
+          name: {{ .Values.app_name }}
+          protocol: TCP
+        volumeMounts:
+        - name: {{ .Values.app_volume_name }}
+          mountPath: /var/www/catima/public/upload
+          subPath: public-uploads
+        - name: {{ .Values.app_volume_name }}
+          mountPath: /var/www/catima/public/thumbs
+          subPath: public-thumbs
+        - name: {{ .Values.app_volume_name }}
+          mountPath: /var/www/catima/public/system/refile
+          subPath: public-refile
+        - name: {{ .Values.app_volume_name }}
+          mountPath: /var/www/catima/log
+          subPath: logs
+        - name: {{ .Values.app_volume_name }}
+          mountPath: /var/www/catima/exports
+          subPath: exports
+        - name: config-domains
+          mountPath: /var/www/catima/config/domains.yml
+          subPath: domains.yml
+        - name: config-geo-layers
+          mountPath: /var/www/catima/config/geo_layers.yml
+          subPath: geo_layers.yml
+        - name: config-restricted-robots
+          mountPath: /var/www/catima/config/restricted_robots.yml
+          subPath: restricted_robots.yml
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "/var/www/catima/k8s-poststart.sh"]
+        resources:
+          requests:
+            memory: "{{ .Values.app_memory_request }}"
+            cpu: "{{ .Values.app_cpu_request }}"
+          limits:
+            memory: "{{ .Values.app_memory_limit }}"
+            cpu: "{{ .Values.app_cpu_limit }}"
+      volumes:
+      - name: {{ .Values.app_volume_name }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.app_name }}-pvc
+      - name: config-domains
+        configMap:
+          name: {{ .Values.app_name }}-domains-cm
+      - name: config-geo-layers
+        configMap:
+          name: {{ .Values.app_name }}-geo-layers-cm
+      - name: config-restricted-robots
+        configMap:
+          name: {{ .Values.app_name }}-restricted-robots-cm

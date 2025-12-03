@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.worker_name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.worker_name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.worker_name }}
+    spec:
+      initContainers:
+        - name: wait-for
+          image: "ghcr.io/patrickdappollonio/wait-for:latest"
+          command:
+            - /wait-for
+          args:
+            - --host="{{ .Values.db_name }}-svc:5432"
+            - --host="{{ .Values.cache_name }}-svc:6379"
+            - --verbose
+      containers:
+        - name: {{ .Values.worker_name }}
+          image: "unillett/catima:{{ .Values.worker_image_tag }}"
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.app_name }}-cm
+          volumeMounts:
+            - name: {{ .Values.app_volume_name }}
+              mountPath: /var/www/catima/public/upload
+              subPath: public-uploads
+            - name: {{ .Values.app_volume_name }}
+              mountPath: /var/www/catima/public/thumbs
+              subPath: public-thumbs
+            - name: {{ .Values.app_volume_name }}
+              mountPath: /var/www/catima/public/system/refile
+              subPath: public-refile
+            - name: {{ .Values.app_volume_name }}
+              mountPath: /var/www/catima/log
+              subPath: logs
+            - name: {{ .Values.app_volume_name }}
+              mountPath: /var/www/catima/exports
+              subPath: exports
+            - name: config-domains
+              mountPath: /var/www/catima/config/domains.yml
+              subPath: domains.yml
+            - name: config-geo-layers
+              mountPath: /var/www/catima/config/geo_layers.yml
+              subPath: geo_layers.yml
+            - name: config-restricted-robots
+              mountPath: /var/www/catima/config/restricted_robots.yml
+              subPath: restricted_robots.yml
+          resources:
+            requests:
+              memory: "{{ .Values.worker_memory_request }}"
+              cpu: "{{ .Values.worker_cpu_request }}"
+            limits:
+              memory: "{{ .Values.worker_memory_limit }}"
+              cpu: "{{ .Values.worker_cpu_limit }}"
+      volumes:
+        - name: {{ .Values.app_volume_name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.app_name }}-pvc
+        - name: config-domains
+          configMap:
+            name: {{ .Values.app_name }}-domains-cm
+        - name: config-geo-layers
+          configMap:
+            name: {{ .Values.app_name }}-geo-layers-cm
+        - name: config-restricted-robots
+          configMap:
+            name: {{ .Values.app_name }}-restricted-robots-cm

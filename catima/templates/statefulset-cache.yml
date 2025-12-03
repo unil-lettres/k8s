@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.cache_name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  serviceName: "{{ .Values.cache_name }}-svc"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.cache_name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.cache_name }}
+    spec:
+      containers:
+      - name: {{ .Values.cache_name }}
+        image: "redis:{{ .Values.cache_image_tag }}"
+        envFrom:
+          - configMapRef:
+              name: {{ .Values.cache_name }}-cm
+        ports:
+        - containerPort: 6379
+          name: {{ .Values.cache_name }}
+          protocol: TCP
+        volumeMounts:
+        - name: {{ .Values.cache_volume_name }}
+          mountPath: /data
+          subPath: redis
+        resources:
+          requests:
+            memory: "{{ .Values.cache_memory_request }}"
+            cpu: "{{ .Values.cache_cpu_request }}"
+          limits:
+            memory: "{{ .Values.cache_memory_limit }}"
+            cpu: "{{ .Values.cache_cpu_limit }}"
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.cache_volume_name }}
+        namespace: {{ .Values.namespace }}
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.cache_storage_request }}

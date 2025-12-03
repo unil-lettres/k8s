@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.cache_name }}-cm
+  namespace: {{ .Values.namespace }}
+data:
+  REDIS_HOST: "{{ .Values.cache_name }}-svc"
+  REDIS_PORT: "{{ .Values.ENV.redis_port }}"
+  REDIS_DB: "{{ .Values.ENV.redis_db }}"

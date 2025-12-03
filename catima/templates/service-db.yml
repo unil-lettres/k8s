@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: {{ .Values.db_name }}-svc
+  name: {{ .Values.db_name }}-svc
+  namespace: {{ .Values.namespace }}
+spec:
+  clusterIP: None # Headless
+  ports:
+  - name: "{{ .Values.db_name }}"
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: {{ .Values.db_name }}

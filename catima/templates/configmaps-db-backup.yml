@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.db_name }}-backup-cm
+  namespace: {{ .Values.namespace }}
+data:
+  POSTGRES_DB: "{{ .Values.ENV.postgres_db }}"
+  POSTGRES_HOST: {{ .Values.db_name }}-svc
+  POSTGRES_USER: "{{ .Values.ENV.postgres_user }}"
+  POSTGRES_PASSWORD: "{{ .Values.ENV.postgres_password }}"
+  POSTGRES_PORT: "{{ .Values.ENV.postgres_port }}"

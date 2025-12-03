@@ -1,0 +1,4 @@
+apiVersion: v2
+name: helm-catima
+description: Helm chart for Catima
+version: 1.0.0

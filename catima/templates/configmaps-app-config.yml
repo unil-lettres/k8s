@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app_name }}-domains-cm
+  namespace: {{ .Values.namespace }}
+data:
+  domains.yml: |
+{{ .Values.CONFIG.domains | toYaml | indent 4 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app_name }}-geo-layers-cm
+  namespace: {{ .Values.namespace }}
+data:
+  geo_layers.yml: |
+{{ .Values.CONFIG.geo_layers | toYaml | indent 4 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app_name }}-restricted-robots-cm
+  namespace: {{ .Values.namespace }}
+data:
+  restricted_robots.yml: |
+{{ .Values.CONFIG.restricted_robots | toYaml | indent 4 }}
+

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.db_name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  serviceName: "{{ .Values.db_name }}-svc"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.db_name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.db_name }}
+    spec:
+      containers:
+      - name: {{ .Values.db_name }}
+        image: "postgis/postgis:{{ .Values.db_image_tag }}"
+        envFrom:
+          - configMapRef:
+              name: {{ .Values.db_name }}-cm
+        ports:
+        - containerPort: 5432
+          name: {{ .Values.db_name }}
+          protocol: TCP
+        volumeMounts:
+        - name: {{ .Values.db_volume_name }}
+          mountPath: /var/lib/postgresql
+          subPath: db
+        - name: {{ .Values.db_volume_name }}
+          mountPath: /dumps
+          subPath: dumps
+        resources:
+          requests:
+            memory: "{{ .Values.db_memory_request }}"
+            cpu: "{{ .Values.db_cpu_request }}"
+          limits:
+            memory: "{{ .Values.db_memory_limit }}"
+            cpu: "{{ .Values.db_cpu_limit }}"
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.db_volume_name }}
+        namespace: {{ .Values.namespace }}
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.db_storage_request }}
