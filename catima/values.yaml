@@ -5,7 +5,7 @@ app_memory_request: 500Mi
 app_cpu_request: 0.5
 app_memory_limit: 1000Mi
 app_cpu_limit: 1
-app_storage_request: 500Gi
+app_storage_request: 300Gi
 app_volume_name: data-volume
 app_ingress_host_cluster: my.host.com
 app_ingress_host_alias: my.host.com
@@ -24,7 +24,7 @@ db_memory_request: 600Mi
 db_cpu_request: 0.2
 db_memory_limit: 1000Mi
 db_cpu_limit: 1
-db_storage_request: 20Gi
+db_storage_request: 30Gi
 db_volume_name: data-volume
 cache_name: catima-redis
 cache_image_tag: latest
