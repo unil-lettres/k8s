@@ -37,14 +37,14 @@ cache_storage_request: 5Gi
 cache_volume_name: data-volume
 ENV:
   rails_env: production
-  clue_override: null
+  clue_override: production
   secret_key_base: your-rails-secret-key-base
   mail_smtp_address: my.smtp.host
   mail_smtp_auth: 1
-  mail_smtp_username: null
-  mail_smtp_password: null
+  mail_smtp_username: smtp_username
+  mail_smtp_password: smtp_password
   mail_smtp_port: 25
-  mail_smtp_domain: null
+  mail_smtp_domain: smtp_domain
   mail_sender: catima@example.com
   postgres_db: catima
   postgres_user: user
@@ -54,12 +54,12 @@ ENV:
   redis_db: 0
   doc_base_url: https://catima.github.io/userdoc
   ahoy_enable_tracking: 1
-  ahoy_visits_validity: null # Defaut is 6 months
-  ahoy_events_validity: null # Defaut is 6 months
-  entry_logs_validity: null # Defaut is 4 months
-  api_logs_validity: null # Defaut is 4 months
+  ahoy_visits_validity: 6
+  ahoy_events_validity: 6
+  entry_logs_validity: 4
+  api_logs_validity: 4
   maintenance_mode: 0
-  maintainer_ips: null
+  maintainer_ips: 127.0.0.1
   asset_host: https://catima-assets.example.com
   domain: catima.example.com
   protocol: https
@@ -67,14 +67,14 @@ ENV:
   recaptcha_site_key: your-recaptcha-site-key
   recaptcha_secret_key: your-recaptcha-secret-key
   devise_jwt_secret_key: your-devise-jwt-secret-key
-  file_max_upload_size: null # Defaut is 200MB
-  image_max_upload_size: null # Defaut is 15MB
-  exports_validity: null # Defaut is 7 days
-  zoom_level_distant: null # Defaut is 5
-  zoom_level_medium: null # Defaut is 10
-  zoom_level_close: null # Defaut is 15
-  polygon_color: null # Defaut is #9336af
-  polyline_color: null # Defaut is #000000
+  file_max_upload_size: 200 # In MB
+  image_max_upload_size: 15 # In MB
+  exports_validity: 7 # In days
+  zoom_level_distant: 5
+  zoom_level_medium: 10
+  zoom_level_close: 15
+  polygon_color: "#9336af"
+  polyline_color: "#000000"
   auth_facebook_app_id: null
   auth_facebook_app_secret: null
   auth_github_app_id: null
