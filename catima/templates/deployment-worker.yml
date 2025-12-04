@@ -12,6 +12,9 @@ spec:
       labels:
         app: {{ .Values.worker_name }}
     spec:
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
       initContainers:
         - name: wait-for
           image: "ghcr.io/patrickdappollonio/wait-for:latest"

@@ -8,7 +8,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ .Values.worker_name }}
-  minReplicas: {{ .Values.worker_min_replicas | default 1 }}
+  minReplicas: {{ .Values.worker_min_replicas }}
   maxReplicas: {{ .Values.worker_max_replicas }}
   metrics:
     - type: Resource
@@ -19,14 +19,6 @@ spec:
           averageUtilization: {{ .Values.hpa_cpu_target }}
   behavior:
     scaleUp:
-      stabilizationWindowSeconds: 60
-      policies:
-        - type: Pods
-          value: 1
-          periodSeconds: 60
+      stabilizationWindowSeconds: {{ .Values.hpa_scale_up_stabilization }}
     scaleDown:
       stabilizationWindowSeconds: {{ .Values.hpa_scale_down_stabilization }}
-      policies:
-        - type: Pods
-          value: 1
-          periodSeconds: 60

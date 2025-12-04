@@ -17,8 +17,8 @@ worker_cpu_request: 0.25
 worker_memory_limit: 1000Mi
 worker_cpu_limit: 1
 hpa_cpu_target: 70
-hpa_memory_target: 80
-hpa_scale_down_stabilization: 300
+hpa_scale_up_stabilization: 30
+hpa_scale_down_stabilization: 60
 db_name: catima-postgres
 db_image_tag: latest
 db_memory_request: 600Mi
