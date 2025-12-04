@@ -54,12 +54,12 @@ ENV:
   redis_db: 0
   doc_base_url: https://catima.github.io/userdoc
   ahoy_enable_tracking: 1
-  ahoy_visits_validity: 6
-  ahoy_events_validity: 6
-  entry_logs_validity: 4
-  api_logs_validity: 4
+  ahoy_visits_validity: null # Default is 6 months
+  ahoy_events_validity: null # Default is 6 months
+  entry_logs_validity: null # Default is 4 months
+  api_logs_validity: null # Default is 4 months
   maintenance_mode: 0
-  maintainer_ips: 127.0.0.1
+  maintainer_ips: null
   asset_host: https://catima-assets.example.com
   domain: catima.example.com
   protocol: https
@@ -67,14 +67,14 @@ ENV:
   recaptcha_site_key: your-recaptcha-site-key
   recaptcha_secret_key: your-recaptcha-secret-key
   devise_jwt_secret_key: your-devise-jwt-secret-key
-  file_max_upload_size: 200 # In MB
-  image_max_upload_size: 15 # In MB
-  exports_validity: 7 # In days
-  zoom_level_distant: 5
-  zoom_level_medium: 10
-  zoom_level_close: 15
-  polygon_color: "#9336af"
-  polyline_color: "#000000"
+  file_max_upload_size: null # Default is 200MB
+  image_max_upload_size: null # Default is 15MB
+  exports_validity: null # Default is 7 days
+  zoom_level_distant: null # Default is 5
+  zoom_level_medium: null # Default is 10
+  zoom_level_close: null # Default is 15
+  polygon_color: null # Default is "#9336af"
+  polyline_color: null # Default is "#000000"
   auth_facebook_app_id: null
   auth_facebook_app_secret: null
   auth_github_app_id: null
