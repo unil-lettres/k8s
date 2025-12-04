@@ -4,7 +4,6 @@ metadata:
   name: {{ .Values.worker_name }}
   namespace: {{ .Values.namespace }}
 spec:
-  replicas: {{ .Values.worker_replicas }}
   selector:
     matchLabels:
       app: {{ .Values.worker_name }}
