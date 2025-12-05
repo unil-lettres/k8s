@@ -2,9 +2,9 @@ namespace: catima
 app_name: catima-app
 app_min_replicas: 1
 app_max_replicas: 4
-app_memory_request: 500Mi
-app_cpu_request: 0.5
-app_memory_limit: 1000Mi
+app_memory_request: 600Mi
+app_cpu_request: 0.25
+app_memory_limit: 1200Mi
 app_cpu_limit: 1
 app_storage_request: 300Gi
 app_volume_name: data-volume
@@ -16,7 +16,7 @@ app_hpa_scale_down_stabilization: 60
 worker_name: catima-worker
 worker_min_replicas: 1
 worker_max_replicas: 4
-worker_memory_request: 500Mi
+worker_memory_request: 300Mi
 worker_cpu_request: 0.25
 worker_memory_limit: 1000Mi
 worker_cpu_limit: 1
@@ -41,7 +41,7 @@ cache_storage_request: 5Gi
 cache_volume_name: data-volume
 ENV:
   rails_env: production
-  clue_override: production
+  clue_override: null
   secret_key_base: your-rails-secret-key-base
   mail_smtp_address: my.smtp.host
   mail_smtp_auth: 1
