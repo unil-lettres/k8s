@@ -11,7 +11,7 @@ app_volume_name: data-volume
 app_ingress_host_cluster: my.host.com
 app_ingress_host_alias: my.host.com
 app_hpa_cpu_target: 70
-app_hpa_scale_up_stabilization: 30
+app_hpa_scale_up_stabilization: 40
 app_hpa_scale_down_stabilization: 60
 worker_name: catima-worker
 worker_min_replicas: 1
@@ -21,7 +21,7 @@ worker_cpu_request: 0.25
 worker_memory_limit: 1000Mi
 worker_cpu_limit: 1
 worker_hpa_cpu_target: 70
-worker_hpa_scale_up_stabilization: 30
+worker_hpa_scale_up_stabilization: 40
 worker_hpa_scale_down_stabilization: 60
 db_name: catima-postgres
 db_image_tag: latest
