@@ -1,6 +1,7 @@
 namespace: catima
 app_name: catima-app
-app_replicas: 1
+app_min_replicas: 1
+app_max_replicas: 4
 app_memory_request: 500Mi
 app_cpu_request: 0.5
 app_memory_limit: 1000Mi
@@ -9,6 +10,9 @@ app_storage_request: 300Gi
 app_volume_name: data-volume
 app_ingress_host_cluster: my.host.com
 app_ingress_host_alias: my.host.com
+app_hpa_cpu_target: 70
+app_hpa_scale_up_stabilization: 30
+app_hpa_scale_down_stabilization: 60
 worker_name: catima-worker
 worker_min_replicas: 1
 worker_max_replicas: 4
@@ -16,9 +20,9 @@ worker_memory_request: 500Mi
 worker_cpu_request: 0.25
 worker_memory_limit: 1000Mi
 worker_cpu_limit: 1
-hpa_cpu_target: 70
-hpa_scale_up_stabilization: 30
-hpa_scale_down_stabilization: 60
+worker_hpa_cpu_target: 70
+worker_hpa_scale_up_stabilization: 30
+worker_hpa_scale_down_stabilization: 60
 db_name: catima-postgres
 db_image_tag: latest
 db_memory_request: 600Mi
