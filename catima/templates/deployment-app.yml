@@ -64,6 +64,13 @@ spec:
           postStart:
             exec:
               command: ["/bin/sh", "-c", "/var/www/catima/k8s-poststart.sh"]
+        startupProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: {{ .Values.app_startup_probe_initial_delay }}
+          periodSeconds: {{ .Values.app_startup_probe_period }}
+          failureThreshold: {{ .Values.app_startup_probe_failure_threshold }}
         resources:
           requests:
             memory: "{{ .Values.app_memory_request }}"

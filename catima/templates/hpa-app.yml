@@ -20,5 +20,15 @@ spec:
   behavior:
     scaleUp:
       stabilizationWindowSeconds: {{ .Values.app_hpa_scale_up_stabilization }}
+      policies:
+        - type: Pods
+          value: {{ .Values.app_hpa_scale_up_max_pods }}
+          periodSeconds: {{ .Values.app_hpa_scale_up_period }}
+      selectPolicy: Max
     scaleDown:
       stabilizationWindowSeconds: {{ .Values.app_hpa_scale_down_stabilization }}
+      policies:
+        - type: Pods
+          value: {{ .Values.app_hpa_scale_down_max_pods }}
+          periodSeconds: {{ .Values.app_hpa_scale_down_period }}
+      selectPolicy: Max
