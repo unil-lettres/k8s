@@ -55,9 +55,9 @@ ENV:
   clue_override: null
   secret_key_base: your-rails-secret-key-base
   mail_smtp_address: my.smtp.host
-  mail_smtp_auth: 1
-  mail_smtp_username: smtp_username
-  mail_smtp_password: smtp_password
+  mail_smtp_auth: 0
+  mail_smtp_username: null
+  mail_smtp_password: null
   mail_smtp_port: 25
   mail_smtp_domain: smtp_domain
   mail_sender: catima@example.com
