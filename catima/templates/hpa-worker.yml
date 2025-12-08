@@ -16,7 +16,7 @@ spec:
         name: cpu
         target:
           type: AverageValue
-          averageUtilization: {{ .Values.worker_hpa_cpu_target }}
+          averageValue: {{ .Values.worker_hpa_cpu_target }}
   behavior:
     scaleUp:
       stabilizationWindowSeconds: {{ .Values.worker_hpa_scale_up_stabilization }}
