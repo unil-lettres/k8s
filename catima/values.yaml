@@ -10,7 +10,7 @@ app_storage_request: 300Gi
 app_volume_name: data-volume
 app_ingress_host_cluster: my.host.com
 app_ingress_host_alias: my.host.com
-app_hpa_cpu_target: 700m
+app_hpa_cpu_target: 90
 app_hpa_scale_up_stabilization: 40
 app_hpa_scale_up_max_pods: 1
 app_hpa_scale_up_period: 30
@@ -27,7 +27,7 @@ worker_memory_request: 300Mi
 worker_cpu_request: 0.25
 worker_memory_limit: 1000Mi
 worker_cpu_limit: 1
-worker_hpa_cpu_target: 700m
+worker_hpa_cpu_target: 90
 worker_hpa_scale_up_stabilization: 60
 worker_hpa_scale_up_max_pods: 1
 worker_hpa_scale_up_period: 30
