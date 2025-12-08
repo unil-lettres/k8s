@@ -11,10 +11,10 @@ app_volume_name: data-volume
 app_ingress_host_cluster: my.host.com
 app_ingress_host_alias: my.host.com
 app_hpa_cpu_target: 90
-app_hpa_scale_up_stabilization: 40
+app_hpa_scale_up_stabilization: 30
 app_hpa_scale_up_max_pods: 1
 app_hpa_scale_up_period: 30
-app_hpa_scale_down_stabilization: 60
+app_hpa_scale_down_stabilization: 80
 app_hpa_scale_down_max_pods: 1
 app_hpa_scale_down_period: 30
 app_startup_probe_initial_delay: 10
@@ -31,7 +31,7 @@ worker_hpa_cpu_target: 90
 worker_hpa_scale_up_stabilization: 60
 worker_hpa_scale_up_max_pods: 1
 worker_hpa_scale_up_period: 30
-worker_hpa_scale_down_stabilization: 60
+worker_hpa_scale_down_stabilization: 80
 worker_hpa_scale_down_max_pods: 1
 worker_hpa_scale_down_period: 30
 db_name: catima-postgres
