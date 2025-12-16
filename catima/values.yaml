@@ -5,7 +5,7 @@ app_max_replicas: 4
 app_memory_request: 600Mi
 app_cpu_request: 0.25
 app_memory_limit: 1200Mi
-app_cpu_limit: 1
+app_cpu_limit: 1.5
 app_storage_request: 300Gi
 app_volume_name: data-volume
 app_ingress_host_cluster: my.host.com
@@ -38,7 +38,7 @@ db_name: catima-postgres
 db_image_tag: latest
 db_memory_request: 600Mi
 db_cpu_request: 0.2
-db_memory_limit: 1000Mi
+db_memory_limit: 1500Mi
 db_cpu_limit: 1
 db_storage_request: 30Gi
 db_volume_name: data-volume
