@@ -25,15 +25,8 @@ worker_min_replicas: 1
 worker_max_replicas: 4
 worker_memory_request: 300Mi
 worker_cpu_request: 0.25
-worker_memory_limit: 1000Mi
-worker_cpu_limit: 1
-worker_hpa_cpu_target: 90
-worker_hpa_scale_up_stabilization: 60
-worker_hpa_scale_up_max_pods: 1
-worker_hpa_scale_up_period: 30
-worker_hpa_scale_down_stabilization: 80
-worker_hpa_scale_down_max_pods: 1
-worker_hpa_scale_down_period: 30
+worker_memory_limit: 2000Mi
+worker_cpu_limit: 3
 db_name: catima-postgres
 db_image_tag: latest
 db_memory_request: 600Mi
