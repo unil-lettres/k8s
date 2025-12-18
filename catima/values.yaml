@@ -4,7 +4,7 @@ app_min_replicas: 1
 app_max_replicas: 4
 app_memory_request: 600Mi
 app_cpu_request: 0.25
-app_memory_limit: 1200Mi
+app_memory_limit: 2000Mi
 app_cpu_limit: 1
 app_storage_request: 300Gi
 app_volume_name: data-volume
