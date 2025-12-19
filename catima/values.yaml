@@ -23,7 +23,7 @@ app_startup_probe_failure_threshold: 15
 worker_name: catima-worker
 worker_min_replicas: 1
 worker_max_replicas: 4
-worker_memory_request: 300Mi
+worker_memory_request: 600Mi
 worker_cpu_request: 0.25
 worker_memory_limit: 6000Mi
 worker_cpu_limit: 3
