@@ -1,2 +1,2 @@
-app_image_tag: app-v1.8.0-accbbaf-20260105013621
-worker_image_tag: worker-v1.8.0-accbbaf-20260105013619
+app_image_tag: app-v1.9.0
+worker_image_tag: worker-v1.9.0
