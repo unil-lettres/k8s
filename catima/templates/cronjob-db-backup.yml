@@ -22,7 +22,13 @@ spec:
               args:
                 - |
                   find /dumps -type f -mtime +30 -exec rm {} \; && \
-                  PGPASSWORD=$$POSTGRES_PASSWORD pg_dump -h $$POSTGRES_HOST -U $$POSTGRES_USER -d $$POSTGRES_DB > /dumps/$(date +\%Y\%m\%d\%H\%M\%S).sql
+                  PGPASSWORD=$$POSTGRES_PASSWORD pg_dump \
+                    -h $$POSTGRES_HOST \
+                    -U $$POSTGRES_USER \
+                    -d $$POSTGRES_DB \
+                    -F c \
+                    -Z 9 \
+                    -f /dumps/$(date +\%Y\%m\%d\%H\%M\%S).dump
               volumeMounts:
                 - name: {{ .Values.db_volume_name }}
                   mountPath: /dumps
