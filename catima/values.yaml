@@ -30,7 +30,7 @@ db_image_tag: latest
 db_memory_request: 600Mi
 db_cpu_request: 0.2
 db_memory_limit: 1000Mi
-db_cpu_limit: 3
+db_cpu_limit: 4
 db_storage_request: 30Gi
 db_volume_name: data-volume
 cache_name: catima-redis
