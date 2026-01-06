@@ -1,7 +1,7 @@
 namespace: catima
 app_name: catima-app
 app_min_replicas: 1
-app_max_replicas: 5
+app_max_replicas: 4
 app_memory_request: 600Mi
 app_cpu_request: 0.5
 app_memory_limit: 2000Mi
@@ -29,8 +29,8 @@ db_name: catima-postgres
 db_image_tag: latest
 db_memory_request: 600Mi
 db_cpu_request: 0.2
-db_memory_limit: 2000Mi
-db_cpu_limit: 2
+db_memory_limit: 1000Mi
+db_cpu_limit: 3
 db_storage_request: 30Gi
 db_volume_name: data-volume
 cache_name: catima-redis
