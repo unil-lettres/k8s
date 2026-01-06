@@ -25,7 +25,7 @@ worker_min_replicas: 1
 worker_max_replicas: 4
 worker_memory_request: 600Mi
 worker_cpu_request: 0.25
-worker_memory_limit: 6000Mi
+worker_memory_limit: 8000Mi
 worker_cpu_limit: 3
 db_name: catima-postgres
 db_image_tag: latest
