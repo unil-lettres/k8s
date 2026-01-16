@@ -5,7 +5,15 @@ metadata:
   namespace: {{ .Values.namespace }}
 data:
   domains.yml: |
-{{ .Values.CONFIG.domains | toYaml | indent 4 }}
+{{- if .Values.argocd }}
+  {{- if .Values.argocd.domains }}
+    {{ .Values.argocd.domains | toYaml | indent 4 }}
+  {{- else }}
+    {{ .Values.CONFIG.domains | toYaml | indent 4 }}
+  {{- end }}
+{{- else }}
+  {{ .Values.CONFIG.domains | toYaml | indent 4 }}
+{{- end }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -14,7 +22,15 @@ metadata:
   namespace: {{ .Values.namespace }}
 data:
   geo_layers.yml: |
-{{ .Values.CONFIG.geo_layers | toYaml | indent 4 }}
+{{- if .Values.argocd }}
+  {{- if .Values.argocd.geo_layers }}
+    {{ .Values.argocd.geo_layers | toYaml | indent 4 }}
+  {{- else }}
+    {{ .Values.CONFIG.geo_layers | toYaml | indent 4 }}
+  {{- end }}
+{{- else }}
+  {{ .Values.CONFIG.geo_layers | toYaml | indent 4 }}
+{{- end }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -23,5 +39,12 @@ metadata:
   namespace: {{ .Values.namespace }}
 data:
   restricted_robots.yml: |
-{{ .Values.CONFIG.restricted_robots | toYaml | indent 4 }}
-
+{{- if .Values.argocd }}
+  {{- if .Values.argocd.restricted_robots }}
+    {{ .Values.argocd.restricted_robots | toYaml | indent 4 }}
+  {{- else }}
+    {{ .Values.CONFIG.restricted_robots | toYaml | indent 4 }}
+  {{- end }}
+{{- else }}
+  {{ .Values.CONFIG.restricted_robots | toYaml | indent 4 }}
+{{- end }}
