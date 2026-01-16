@@ -6,13 +6,13 @@ metadata:
 data:
   domains.yml: |
 {{- if .Values.argocd }}
-  {{- if .Values.argocd.domains }}
-    {{ .Values.argocd.domains | toYaml | indent 4 }}
-  {{- else }}
-    {{ .Values.CONFIG.domains | toYaml | indent 4 }}
-  {{- end }}
+{{- if .Values.argocd.domains }}
+{{ .Values.argocd.domains | toYaml | indent 4 }}
 {{- else }}
-  {{ .Values.CONFIG.domains | toYaml | indent 4 }}
+{{ .Values.CONFIG.domains | toYaml | indent 4 }}
+{{- end }}
+{{- else }}
+{{ .Values.CONFIG.domains | toYaml | indent 4 }}
 {{- end }}
 ---
 apiVersion: v1
@@ -23,13 +23,13 @@ metadata:
 data:
   geo_layers.yml: |
 {{- if .Values.argocd }}
-  {{- if .Values.argocd.geo_layers }}
-    {{ .Values.argocd.geo_layers | toYaml | indent 4 }}
-  {{- else }}
-    {{ .Values.CONFIG.geo_layers | toYaml | indent 4 }}
-  {{- end }}
+{{- if .Values.argocd.geo_layers }}
+{{ .Values.argocd.geo_layers | toYaml | indent 4 }}
 {{- else }}
-  {{ .Values.CONFIG.geo_layers | toYaml | indent 4 }}
+{{ .Values.CONFIG.geo_layers | toYaml | indent 4 }}
+{{- end }}
+{{- else }}
+{{ .Values.CONFIG.geo_layers | toYaml | indent 4 }}
 {{- end }}
 ---
 apiVersion: v1
@@ -40,11 +40,11 @@ metadata:
 data:
   restricted_robots.yml: |
 {{- if .Values.argocd }}
-  {{- if .Values.argocd.restricted_robots }}
-    {{ .Values.argocd.restricted_robots | toYaml | indent 4 }}
-  {{- else }}
-    {{ .Values.CONFIG.restricted_robots | toYaml | indent 4 }}
-  {{- end }}
+{{- if .Values.argocd.restricted_robots }}
+{{ .Values.argocd.restricted_robots | toYaml | indent 4 }}
 {{- else }}
-  {{ .Values.CONFIG.restricted_robots | toYaml | indent 4 }}
+{{ .Values.CONFIG.restricted_robots | toYaml | indent 4 }}
+{{- end }}
+{{- else }}
+{{ .Values.CONFIG.restricted_robots | toYaml | indent 4 }}
 {{- end }}
