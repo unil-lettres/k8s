@@ -31,6 +31,8 @@ spec:
         - name: {{ .Values.db_volume_name }}
           mountPath: /dumps
           subPath: dumps
+        - name: dshm
+          mountPath: /dev/shm
         resources:
           requests:
             memory: "{{ .Values.db_memory_request }}"
@@ -38,6 +40,11 @@ spec:
           limits:
             memory: "{{ .Values.db_memory_limit }}"
             cpu: "{{ .Values.db_cpu_limit }}"
+      volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 256Mi
   volumeClaimTemplates:
     - metadata:
         name: {{ .Values.db_volume_name }}

@@ -51,8 +51,6 @@ spec:
         - name: {{ .Values.app_volume_name }}
           mountPath: /var/www/catima/exports
           subPath: exports
-        - name: dshm
-          mountPath: /dev/shm
         - name: config-domains
           mountPath: /var/www/catima/config/domains.yml
           subPath: domains.yml
@@ -84,10 +82,6 @@ spec:
       - name: {{ .Values.app_volume_name }}
         persistentVolumeClaim:
           claimName: {{ .Values.app_name }}-pvc
-      - name: dshm
-        emptyDir:
-          medium: Memory
-          sizeLimit: 256Mi
       - name: config-domains
         configMap:
           name: {{ .Values.app_name }}-domains-cm
