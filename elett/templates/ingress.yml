@@ -4,13 +4,10 @@ metadata:
   name: snipeit-ingress
   namespace: {{ .Values.namespace }}
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/affinity: "cookie"
-    nginx.ingress.kubernetes.io/session-cookie-name: "http-cookie"
-    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
-    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
+    traefik.ingress.kubernetes.io/router.entrypoints: "web,websecure"
 spec:
- rules:
+  ingressClassName: traefik
+  rules:
   - host: {{ .Values.app_ingress_host_cluster }}
     http:
       paths:
