@@ -5,6 +5,10 @@ metadata:
     app: {{ .Values.app_name }}-svc
   name: {{ .Values.app_name }}-svc
   namespace: {{ .Values.namespace }}
+  annotations:
+    traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
+    traefik.ingress.kubernetes.io/service.sticky.cookie.name: "http-cookie"
+    traefik.ingress.kubernetes.io/service.sticky.cookie.secure: "true"
 spec:
   ports:
   - name: "{{ .Values.app_name }}"
