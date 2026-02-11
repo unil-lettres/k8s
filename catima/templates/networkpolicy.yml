@@ -33,6 +33,10 @@ spec:
         matchLabels:
           kubernetes.io/metadata.name: ingress-nginx
   - from:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: ingress-traefik
+  - from:
     - namespaceSelector:
         matchLabels:
           kubernetes.io/metadata.name: ceph-csi-cephfs
