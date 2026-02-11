@@ -16,5 +16,3 @@ spec:
   sticky:
     cookie:
       name: http-cookie
-      secure: true
-      httpOnly: true
