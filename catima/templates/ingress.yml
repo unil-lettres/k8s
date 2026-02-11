@@ -6,7 +6,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "traefik"
     traefik.ingress.kubernetes.io/router.entrypoints: "web,websecure"
-    traefik.ingress.kubernetes.io/router.middlewares: "{{ .Values.namespace }}-buffering@kubernetescrd,{{ .Values.namespace }}-sticky@kubernetescrd"
+    traefik.ingress.kubernetes.io/router.middlewares: "{{ .Values.namespace }}-buffering@kubernetescrd"
 spec:
  rules:
   - host: {{ .Values.app_ingress_host_cluster }}

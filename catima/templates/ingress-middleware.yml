@@ -6,13 +6,3 @@ metadata:
 spec:
   buffering:
     maxRequestBodyBytes: 524288000
----
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: {{ .Values.namespace }}-sticky
-  namespace: {{ .Values.namespace }}
-spec:
-  sticky:
-    cookie:
-      name: http-cookie
