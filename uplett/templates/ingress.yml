@@ -4,9 +4,10 @@ metadata:
   name: kuma-ingress
   namespace: {{ .Values.namespace }}
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    traefik.ingress.kubernetes.io/router.entrypoints: "web,websecure"
 spec:
- rules:
+  ingressClassName: traefik
+  rules:
   - host: {{ .Values.app_ingress_host_cluster }}
     http:
       paths:
