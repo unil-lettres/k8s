@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Values.namespace }}
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: "web,websecure"
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespace }}-buffering@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:

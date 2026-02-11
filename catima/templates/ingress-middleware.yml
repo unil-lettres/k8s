@@ -1,8 +1,9 @@
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: {{ .Values.namespace }}-buffering
+  name: buffering
   namespace: {{ .Values.namespace }}
 spec:
   buffering:
-    maxRequestBodyBytes: 524288000
+    maxRequestBodyBytes: 524288000 # 500Mo
+    maxResponseBodyBytes: 0
