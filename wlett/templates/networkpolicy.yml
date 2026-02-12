@@ -25,6 +25,10 @@ spec:
         matchLabels:
           kubernetes.io/metadata.name: kube-node-lease
   - from:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: ingress-nginx
+  - from:
     - namespaceSelector:
         matchLabels:
           kubernetes.io/metadata.name: ingress-traefik
