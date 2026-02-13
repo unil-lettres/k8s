@@ -4,7 +4,9 @@ metadata:
   name: {{ .Values.namespace }}-server-ingress
   namespace: {{ .Values.namespace }}
   annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespace }}-redirect-https@kubernetescrd
+    traefik.ingress.kubernetes.io/router.entrypoints: "web,websecure"
+    traefik.ingress.kubernetes.io/service.serversscheme: https
+    traefik.ingress.kubernetes.io/service.serverstransport: {{ .Values.namespace }}-transport@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
@@ -17,4 +19,4 @@ spec:
           service:
             name: {{ .Values.app_name }}
             port:
-              number: 80
+              number: 443
