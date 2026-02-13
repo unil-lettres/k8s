@@ -5,7 +5,6 @@ metadata:
   namespace: {{ .Values.namespace }}
   annotations:
     traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespace }}-redirect-https@kubernetescrd
-    traefik.ingress.kubernetes.io/service.serversscheme: https
 spec:
   ingressClassName: traefik
   rules:
@@ -18,4 +17,4 @@ spec:
           service:
             name: {{ .Values.app_name }}
             port:
-              number: 8080
+              number: 80
