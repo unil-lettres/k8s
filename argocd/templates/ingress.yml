@@ -5,8 +5,7 @@ metadata:
   namespace: {{ .Values.namespace }}
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: "web,websecure"
-    traefik.ingress.kubernetes.io/service.serversscheme: https
-    #traefik.ingress.kubernetes.io/service.serverstransport: {{ .Values.namespace }}-transport@kubernetescrd
+    #traefik.ingress.kubernetes.io/service.serversscheme: https
 spec:
   ingressClassName: traefik
   rules:
