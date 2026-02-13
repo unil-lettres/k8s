@@ -1,3 +1,4 @@
 namespace: argocd
 app_name: argocd-server
 ingress_host: my.argocd-host.com
+https_redirect_port: null
