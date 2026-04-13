@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.shib_name }}-cm
+  namespace: {{ .Values.namespace }}
+data:
+  APACHE_CUSTOM_CONFIG: "{{ .Values.ENV.apache_custom_config }}"
+  SHIB_HOSTNAME: "{{ .Values.ENV.shib_hostname }}"
+  SHIB_CONTACT: "{{ .Values.ENV.shib_contact }}"
+  SHIB_ENTITY_ID: "{{ .Values.ENV.shib_entity_id }}"
+  SHIB_ATTRIBUTES: "{{ .Values.ENV.shib_attributes }}"
+  SHIB_PROTECTED_PATHS: "{{ .Values.ENV.shib_protected_paths }}"
+  SHIB_SP_CERT: "{{ .Values.ENV.shib_sp_cert }}"
+  SHIB_SP_KEY: "{{ .Values.ENV.shib_sp_key }}"

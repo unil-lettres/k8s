@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.shib_name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.shib_name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.shib_name }}
+    spec:
+      initContainers:
+      - name: wait-for
+        image: ghcr.io/patrickdappollonio/wait-for:latest
+        command:
+          - /wait-for
+        args:
+          - --host="{{ .Values.app_name }}-svc:9001"
+          - --verbose
+      containers:
+      - name: {{ .Values.shib_name }}
+        image: "unillett/apache-shibboleth:{{ .Values.shib_image_tag }}"
+        envFrom:
+          - configMapRef:
+              name: {{ .Values.shib_name }}-cm
+        ports:
+        - containerPort: 9001
+          name: {{ .Values.shib_name }}
+          protocol: TCP
+        resources:
+          requests:
+            memory: "{{ .Values.shib_memory_request }}"
+            cpu: "{{ .Values.shib_cpu_request }}"
+          limits:
+            memory: "{{ .Values.shib_memory_limit }}"
+            cpu: "{{ .Values.shib_cpu_limit }}"

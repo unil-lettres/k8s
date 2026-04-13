@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Values.db_name }}-backup
+  namespace: {{ .Values.namespace }}
+spec:
+  timeZone: {{ .Values.ENV.timezone }}
+  schedule: "0 1 * * *"  # Runs daily at 1 AM
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: db-backup
+            image: "mariadb:{{ .Values.db_image_tag }}"
+            envFrom:
+            - configMapRef:
+                name: {{ .Values.db_name }}-backup-cm
+            command: ["/bin/sh", "-c"]
+            args:
+            - |
+              find /dumps -type f -mtime +30 -exec rm {} \; && \
+              mariadb-dump -h $$MYSQL_HOST -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE > /dumps/$(date +\%Y\%m\%d\%H\%M\%S).sql
+            volumeMounts:
+            - name: {{ .Values.db_volume_name }}
+              mountPath: /dumps
+              subPath: dumps
+          restartPolicy: OnFailure
+          volumes:
+          - name: {{ .Values.db_volume_name }}
+            persistentVolumeClaim:
+              claimName: {{ .Values.db_volume_name }}-{{ .Values.db_name }}-0
