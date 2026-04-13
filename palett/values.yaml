@@ -1,0 +1,63 @@
+namespace: palett
+app_name: etherpad-app
+app_replicas: 1
+app_memory_request: 500Mi
+app_cpu_request: 0.2
+app_memory_limit: 1000Mi
+app_cpu_limit: 1
+app_storage_request: 5Gi
+app_volume_name: data-volume
+app_ingress_host_cluster: my.host.com
+app_ingress_host_alias: my.host.com
+db_name: etherpad-mysql
+db_image_tag: latest
+db_memory_request: 200Mi
+db_cpu_request: 0.2
+db_memory_limit: 500Mi
+db_cpu_limit: 1
+db_storage_request: 10Gi
+db_volume_name: data-volume
+shib_name: etherpad-shibboleth
+shib_image_tag: latest
+shib_memory_request: 150Mi
+shib_cpu_request: 0.2
+shib_memory_limit: 300Mi
+shib_cpu_limit: 0.5
+ENV:
+  title: Palett
+  skin_name: colibris
+  default_pad_text: "Custom welcome text"
+  admin_password: admin
+  show_settings_in_admin_page: false
+  soffice: /usr/bin/soffice
+  require_session: false
+  edit_only: false
+  automatic_reconnection_timeout: 60
+  import_max_file_size: 52428800
+  disable_ip_logging: true
+  pad_options_lang: fr
+  pad_options_no_colors: false
+  pad_options_show_controls: true
+  pad_options_show_chat: true
+  pad_options_show_line_numbers: true
+  pad_options_use_monospace_font: false
+  pad_options_user_name: null
+  pad_options_user_color: null
+  pad_options_rtl: false
+  pad_options_always_show_chat: false
+  pad_options_chat_and_users: false
+  app_env: production
+  bugsnag_api_key: null
+  timezone: Europe/Zurich
+  mysql_database: etherpad
+  mysql_user: user
+  mysql_password: password
+  mysql_root_password: root
+  apache_custom_config: null
+  shib_hostname: etherpad.example.ch
+  shib_contact: admin@example.ch
+  shib_entity_id: host.example.ch
+  shib_attributes: null # No attributes needed, apache-shibboleth will just check if the user is authenticated
+  shib_protected_paths: / # Protect the whole application
+  shib_sp_cert: null
+  shib_sp_key: null
