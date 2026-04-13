@@ -56,7 +56,7 @@ ENV:
   apache_custom_config: null
   shib_hostname: etherpad.example.ch
   shib_contact: admin@example.ch
-  shib_entity_id: host.example.ch
+  shib_entity_id: null
   shib_attributes: null # No attributes needed, apache-shibboleth will just check if the user is authenticated
   shib_protected_paths: / # Protect the whole application
   shib_sp_cert: null
