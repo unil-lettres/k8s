@@ -9,3 +9,4 @@ data:
   POSTGRES_USER: "{{ .Values.ENV.postgres_user }}"
   POSTGRES_PASSWORD: "{{ .Values.ENV.postgres_password }}"
   POSTGRES_PORT: "{{ .Values.ENV.postgres_port }}"
+  POSTGRES_INITDB_ARGS: "{{ .Values.ENV.postgres_initdb_args }}"

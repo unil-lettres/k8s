@@ -56,6 +56,7 @@ ENV:
   postgres_user: user
   postgres_password: password
   postgres_port: 5432
+  postgres_initdb_args: --locale-provider=libc --locale=en_US.UTF-8 --encoding=UTF8
   redis_port: 6379
   redis_db: 0
   doc_base_url: https://catima.github.io/userdoc
