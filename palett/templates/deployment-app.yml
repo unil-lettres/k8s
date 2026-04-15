@@ -19,7 +19,11 @@ spec:
       initContainers:
       - name: fix-permissions
         image: busybox:latest
-        command: ["sh", "-c", "chown -R 5001:5001 /opt/etherpad-lite/src/plugin_packages /opt/etherpad-lite/var"]
+        command: [
+          "sh",
+          "-c",
+          "chown -R etherpad:root /opt/etherpad-lite/src/plugin_packages /opt/etherpad-lite/var"
+        ]
         securityContext:
           runAsUser: 0
         volumeMounts:
