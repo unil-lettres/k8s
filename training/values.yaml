@@ -1,5 +1,6 @@
 namespace: training
 app_name: training-app
+app_workdir: /var/www/training
 app_replicas: 1
 app_memory_request: 700Mi
 app_cpu_request: 0.2
