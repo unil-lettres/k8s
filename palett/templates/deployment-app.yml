@@ -16,6 +16,10 @@ spec:
       securityContext:
         runAsUser: 5001
         fsGroup: 5001
+      dnsConfig:
+        options:
+        - name: ndots
+          value: "1"
       initContainers:
       - name: fix-permissions
         image: busybox:latest
