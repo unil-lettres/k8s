@@ -17,6 +17,18 @@ spec:
         runAsUser: 5001
         fsGroup: 5001
       initContainers:
+      - name: fix-permissions
+        image: busybox:latest
+        command: ["sh", "-c", "chown -R 5001:5001 /opt/etherpad-lite/src/plugin_packages /opt/etherpad-lite/var"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: {{ .Values.app_volume_name }}
+          mountPath: /opt/etherpad-lite/src/plugin_packages
+          subPath: plugins-data
+        - name: {{ .Values.app_volume_name }}
+          mountPath: /opt/etherpad-lite/var
+          subPath: var-data
       - name: wait-for
         image: ghcr.io/patrickdappollonio/wait-for:latest
         command:
