@@ -17,7 +17,7 @@ db_memory_limit: 500Mi
 db_cpu_limit: 1
 db_storage_request: 10Gi
 db_volume_name: data-volume
-shib_name: etherpad-shibboleth
+shib_name: etherpad-shib
 shib_image_tag: latest
 shib_memory_request: 150Mi
 shib_cpu_request: 0.2
