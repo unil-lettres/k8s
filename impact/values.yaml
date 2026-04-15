@@ -1,5 +1,6 @@
 namespace: impact
 app_name: impact-app
+app_workdir: /var/www/impact
 app_replicas: 1
 app_memory_request: 500Mi
 app_cpu_request: 0.2

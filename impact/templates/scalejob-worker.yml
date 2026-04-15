@@ -34,21 +34,21 @@ spec:
             lifecycle:
               postStart:
                 exec:
-                  command: ["/bin/sh", "-c", "/var/www/impact/k8s-poststart.sh"]
+                  command: ["/bin/sh", "-c", "{{ .Values.app_workdir }}/k8s-poststart.sh"]
               preStop:
                 exec:
                   command: ["/bin/sh", "-c", "echo '[preStop] Pod is terminating...'"]
             command: ["/bin/docker-entrypoint.sh"]
-            args: ["php", "/var/www/impact/artisan", "queue:work", "--once", "--sleep=0", "--tries=2"]
+            args: ["php", "{{ .Values.app_workdir }}/artisan", "queue:work", "--once", "--sleep=0", "--tries=2"]
             envFrom:
               - configMapRef:
                   name: {{ .Values.app_name }}-cm
             volumeMounts:
               - name: {{ .Values.app_volume_name }}
-                mountPath: /var/www/impact/storage/app/public
+                mountPath: {{ .Values.app_workdir }}/storage/app/public
                 subPath: public-uploads
               - name: {{ .Values.app_volume_name }}
-                mountPath: /var/www/impact/storage/logs
+                mountPath: {{ .Values.app_workdir }}/storage/logs
                 subPath: storage-logs
             resources:
               requests:

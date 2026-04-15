@@ -14,6 +14,22 @@ spec:
         app: {{ .Values.app_name }}
     spec:
       initContainers:
+      - name: fix-permissions
+        image: busybox:latest
+        command: [
+          "sh",
+          "-c",
+          "chown -R 33:33 {{ .Values.app_workdir }}/storage/app/public {{ .Values.app_workdir }}/storage/logs"
+        ]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: {{ .Values.app_volume_name }}
+          mountPath: {{ .Values.app_workdir }}/storage/app/public
+          subPath: public-uploads
+        - name: {{ .Values.app_volume_name }}
+          mountPath: {{ .Values.app_workdir }}/storage/logs
+          subPath: storage-logs
       - name: wait-for
         image: "ghcr.io/patrickdappollonio/wait-for:latest"
         command:
@@ -34,18 +50,18 @@ spec:
           protocol: TCP
         volumeMounts:
         - name: {{ .Values.app_volume_name }}
-          mountPath: /var/www/impact/storage/app/public
+          mountPath: {{ .Values.app_workdir }}/storage/app/public
           subPath: public-uploads
         - name: {{ .Values.app_volume_name }}
           mountPath: /etc/shibboleth
           subPath: shibboleth-config
         - name: {{ .Values.app_volume_name }}
-          mountPath: /var/www/impact/storage/logs
+          mountPath: {{ .Values.app_workdir }}/storage/logs
           subPath: storage-logs
         lifecycle:
           postStart:
             exec:
-              command: ["/bin/sh", "-c", "/var/www/impact/k8s-poststart.sh"]
+              command: ["/bin/sh", "-c", "{{ .Values.app_workdir }}/k8s-poststart.sh"]
         resources:
           requests:
             memory: "{{ .Values.app_memory_request }}"
