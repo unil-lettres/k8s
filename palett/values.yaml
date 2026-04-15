@@ -1,5 +1,6 @@
 namespace: palett
 app_name: etherpad-app
+app_workdir: /opt/etherpad-lite
 app_replicas: 1
 app_memory_request: 500Mi
 app_cpu_request: 0.2

@@ -16,7 +16,7 @@ spec:
       securityContext:
         runAsUser: 5001
         fsGroup: 5001
-      dnsConfig:
+      dnsConfig: # Fixes DNS resolution fails for external domains from Alpine-based containers
         options:
         - name: ndots
           value: "1"
@@ -26,16 +26,16 @@ spec:
         command: [
           "sh",
           "-c",
-          "chown -R 5001:0 /opt/etherpad-lite/src/plugin_packages /opt/etherpad-lite/var"
+          "chown -R 5001:0 {{ .Values.app_workdir }}/src/plugin_packages {{ .Values.app_workdir }}/var"
         ]
         securityContext:
           runAsUser: 0
         volumeMounts:
         - name: {{ .Values.app_volume_name }}
-          mountPath: /opt/etherpad-lite/src/plugin_packages
+          mountPath: {{ .Values.app_workdir }}/src/plugin_packages
           subPath: plugins-data
         - name: {{ .Values.app_volume_name }}
-          mountPath: /opt/etherpad-lite/var
+          mountPath: {{ .Values.app_workdir }}/var
           subPath: var-data
       - name: wait-for
         image: ghcr.io/patrickdappollonio/wait-for:latest
@@ -56,15 +56,15 @@ spec:
           protocol: TCP
         volumeMounts:
         - name: {{ .Values.app_volume_name }}
-          mountPath: /opt/etherpad-lite/src/plugin_packages
+          mountPath: {{ .Values.app_workdir }}/src/plugin_packages
           subPath: plugins-data
         - name: {{ .Values.app_volume_name }}
-          mountPath: /opt/etherpad-lite/var
+          mountPath: {{ .Values.app_workdir }}/var
           subPath: var-data
         lifecycle:
           postStart:
             exec:
-              command: ["/bin/sh", "-c", "/opt/etherpad-lite/k8s-poststart.sh"]
+              command: ["/bin/sh", "-c", "{{ .Values.app_workdir }}/k8s-poststart.sh"]
         resources:
           requests:
             memory: "{{ .Values.app_memory_request }}"
