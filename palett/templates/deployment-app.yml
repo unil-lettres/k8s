@@ -16,18 +16,38 @@ spec:
       securityContext:
         runAsUser: 5001
         fsGroup: 5001
-      dnsConfig: # Fixes DNS resolution fails for external domains from Alpine-based containers
+      # Fixes DNS resolution fails for external domains from Alpine-based containers
+      dnsConfig:
         options:
         - name: ndots
           value: "1"
       initContainers:
-      - name: fix-permissions
+      # Copy the image's plugins into the k8s volume if empty
+      - name: copy-plugins
+        image: "unillett/etherpad:{{ .Values.app_image_tag }}"
+        command:
+          - sh
+          - -c
+          - |
+            if [ -z "$(ls -A /mnt/plugins-data 2>/dev/null)" ]; then
+              echo "plugins-data is empty, copying plugins from image..."
+              cp -a {{ .Values.app_workdir }}/src/plugin_packages/. /mnt/plugins-data/
+            else
+              echo "plugins-data already populated, skipping copy."
+            fi
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: {{ .Values.app_volume_name }}
+          mountPath: /mnt/plugins-data
+          subPath: plugins-data
+      # Enforce permissions of mounted directories to ensure the app can write to them
+      - name: enfoce-permissions
         image: busybox:latest
-        command: [
-          "sh",
-          "-c",
-          "chown -R 5001:0 {{ .Values.app_workdir }}/src/plugin_packages {{ .Values.app_workdir }}/var"
-        ]
+        command:
+          - sh
+          - -c
+          - chown -R 5001:0 {{ .Values.app_workdir }}/src/plugin_packages {{ .Values.app_workdir }}/var
         securityContext:
           runAsUser: 0
         volumeMounts:
