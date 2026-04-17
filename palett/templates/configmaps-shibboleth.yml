@@ -5,7 +5,22 @@ metadata:
   namespace: {{ .Values.namespace }}
 data:
   APACHE_CUSTOM_CONFIG: |
-    {{ .Values.ENV.apache_custom_config | nindent 4 }}
+    # Apache configuration for Etherpad reverse proxy
+    # Full proxy configuration - all requests go to Etherpad backend
+    ProxyPass / http://{{ .Values.app_name }}-svc:9001/
+    ProxyPassReverse / http://{{ .Values.app_name }}-svc:9001/
+
+    # WebSocket support for Etherpad Socket.IO
+    <Location /socket.io>
+      # This is needed to handle the websocket transport through the proxy, since
+      # etherpad does not use a specific sub-folder, such as /ws/ to handle this kind of traffic.
+      # Taken from https://github.com/ether/etherpad-lite/issues/2318#issuecomment-63548542
+      RewriteEngine On
+      RewriteCond %{QUERY_STRING} transport=websocket [NC]
+      RewriteRule /(.*) ws://{{ .Values.app_name }}-svc:9001/socket.io/$1 [P,L]
+      ProxyPass http://{{ .Values.app_name }}-svc:9001/socket.io retry=0 timeout=30
+      ProxyPassReverse http://{{ .Values.app_name }}-svc:9001/socket.io
+    </Location>
   SHIB_HOSTNAME: "{{ .Values.ENV.shib_hostname }}"
   SHIB_CONTACT: "{{ .Values.ENV.shib_contact }}"
   SHIB_ENTITY_ID: "{{ .Values.ENV.shib_entity_id }}"

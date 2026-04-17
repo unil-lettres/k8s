@@ -54,23 +54,6 @@ ENV:
   mysql_user: user
   mysql_password: password
   mysql_root_password: root
-  apache_custom_config: |
-    # Apache configuration for Etherpad reverse proxy
-    # Full proxy configuration - all requests go to Etherpad backend
-    ProxyPass / http://{{ .Values.app_name }}-svc:9001/
-    ProxyPassReverse / http://{{ .Values.app_name }}-svc:9001/
-
-    # WebSocket support for Etherpad Socket.IO
-    <Location /socket.io>
-      # This is needed to handle the websocket transport through the proxy, since
-      # etherpad does not use a specific sub-folder, such as /ws/ to handle this kind of traffic.
-      # Taken from https://github.com/ether/etherpad-lite/issues/2318#issuecomment-63548542
-      RewriteEngine On
-      RewriteCond %{QUERY_STRING} transport=websocket [NC]
-      RewriteRule /(.*) ws://{{ .Values.app_name }}-svc:9001/socket.io/$1 [P,L]
-      ProxyPass http://{{ .Values.app_name }}-svc:9001/socket.io retry=0 timeout=30
-      ProxyPassReverse http://{{ .Values.app_name }}-svc:9001/socket.io
-    </Location>
   shib_hostname: etherpad.example.ch
   shib_contact: admin@example.ch
   shib_entity_id: null
