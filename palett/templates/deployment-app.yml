@@ -44,11 +44,10 @@ spec:
       # Enforce permissions of mounted directories to ensure the app can write to them
       - name: enfoce-permissions
         image: busybox:latest
-        command: [
-          "sh",
-          "-c",
-          "chown -R 5001:0 {{ .Values.app_workdir }}/src/plugin_packages {{ .Values.app_workdir }}/var"
-        ]
+        command:
+          - sh
+          - -c
+          - chown -R 5001:0 {{ .Values.app_workdir }}/src/plugin_packages {{ .Values.app_workdir }}/var
         securityContext:
           runAsUser: 0
         volumeMounts:
