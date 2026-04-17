@@ -14,13 +14,13 @@ spec:
         app: {{ .Values.app_name }}
     spec:
       initContainers:
-      - name: fix-permissions
+      # Enforce permissions of mounted directories to ensure the app can write to them
+      - name: enfoce-permissions
         image: busybox:latest
-        command: [
-          "sh",
-          "-c",
-          "chown -R 33:33 {{ .Values.app_workdir }}/storage/app/public {{ .Values.app_workdir }}/storage/logs"
-        ]
+        command:
+          - sh
+          - -c
+          - chown -R 33:33 {{ .Values.app_workdir }}/storage/app/public {{ .Values.app_workdir }}/storage/logs
         securityContext:
           runAsUser: 0
         volumeMounts:
