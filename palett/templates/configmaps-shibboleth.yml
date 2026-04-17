@@ -4,7 +4,8 @@ metadata:
   name: {{ .Values.shib_name }}-cm
   namespace: {{ .Values.namespace }}
 data:
-  APACHE_CUSTOM_CONFIG: "{{ .Values.ENV.apache_custom_config }}"
+  APACHE_CUSTOM_CONFIG: |
+    {{ .Values.ENV.apache_custom_config | nindent 4 }}
   SHIB_HOSTNAME: "{{ .Values.ENV.shib_hostname }}"
   SHIB_CONTACT: "{{ .Values.ENV.shib_contact }}"
   SHIB_ENTITY_ID: "{{ .Values.ENV.shib_entity_id }}"
