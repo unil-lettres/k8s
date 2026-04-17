@@ -81,6 +81,9 @@ spec:
         - name: {{ .Values.app_volume_name }}
           mountPath: {{ .Values.app_workdir }}/var
           subPath: var-data
+        - name: {{ .Values.app_volume_name }}
+          mountPath: {{ .Values.app_workdir }}/node_modules
+          subPath: node-data
         lifecycle:
           postStart:
             exec:
