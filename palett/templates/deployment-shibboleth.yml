@@ -20,6 +20,7 @@ spec:
           - /wait-for
         args:
           - --host="{{ .Values.app_name }}-svc:9001"
+          - --timeout=300s
           - --verbose
       containers:
       - name: {{ .Values.shib_name }}
