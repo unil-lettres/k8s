@@ -16,7 +16,6 @@ spec:
       securityContext:
         runAsUser: 5001
         fsGroup: 5001
-      # Fixes DNS resolution fails for external domains from Alpine-based containers
       dnsConfig:
         options:
         - name: ndots
