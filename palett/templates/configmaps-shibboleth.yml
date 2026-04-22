@@ -20,14 +20,11 @@ data:
       RewriteRule /(.*) ws://{{ .Values.app_name }}-svc:9001/socket.io/$1 [P,L]
       ProxyPass http://{{ .Values.app_name }}-svc:9001/socket.io retry=0 timeout=30
       ProxyPassReverse http://{{ .Values.app_name }}-svc:9001/socket.io
-      # Bypass Shibboleth authentication for WebSocket connections
-      AuthType None
-      Require all granted
     </Location>
   SHIB_HOSTNAME: "{{ .Values.ENV.shib_hostname }}"
   SHIB_CONTACT: "{{ .Values.ENV.shib_contact }}"
-  SHIB_ENTITY_ID: "{{ .Values.ENV.shib_entity_id }}"
-  SHIB_ATTRIBUTES: "{{ .Values.ENV.shib_attributes }}"
+  SHIB_ENTITY_ID: "{{ default "" .Values.ENV.shib_entity_id }}"
+  SHIB_ATTRIBUTES: "{{ default "" .Values.ENV.shib_attributes }}"
   SHIB_PROTECTED_PATHS: "{{ .Values.ENV.shib_protected_paths }}"
-  SHIB_SP_CERT: "{{ .Values.ENV.shib_sp_cert }}"
-  SHIB_SP_KEY: "{{ .Values.ENV.shib_sp_key }}"
+  SHIB_SP_CERT: "{{ default "" .Values.ENV.shib_sp_cert }}"
+  SHIB_SP_KEY: "{{ default "" .Values.ENV.shib_sp_key }}"

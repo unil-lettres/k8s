@@ -29,7 +29,7 @@ spec:
           - configMapRef:
               name: {{ .Values.shib_name }}-cm
         ports:
-        - containerPort: 9001
+        - containerPort: 8080
           name: {{ .Values.shib_name }}
           protocol: TCP
         resources:
