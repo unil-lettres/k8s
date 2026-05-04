@@ -38,7 +38,7 @@ data:
   SESSION_ENCRYPT: "false"
   SESSION_PATH: "/"
   SESSION_DOMAIN: "null"
-  SESSION_COOKIE: "formalett_session"
+  SESSION_COOKIE: "{{ .Values.namespace }}_session"
   SHIB_HOSTNAME: "{{ .Values.ENV.shib_hostname }}"
   SHIB_CONTACT: "{{ .Values.ENV.shib_contact }}"
   BUGSNAG_API_KEY: "{{ .Values.ENV.bugsnag_api_key }}"
