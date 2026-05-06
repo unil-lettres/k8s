@@ -1,2 +1,2 @@
-app_image_tag: v2.7.2-563415b-20260503232326
-shib_image_tag: latest
+app_image_tag: v2.7.2-rev1
+shib_image_tag: v1.1.0-2892a5c-20260503222047
