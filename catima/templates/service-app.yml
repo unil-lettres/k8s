@@ -5,6 +5,7 @@ metadata:
     app: {{ .Values.app_name }}-svc
   name: {{ .Values.app_name }}-svc
   namespace: {{ .Values.namespace }}
+  # Sticky sessions are not needed since user sessions are stored in Redis
 spec:
   ports:
   - name: "{{ .Values.app_name }}"

@@ -51,6 +51,9 @@ spec:
         - name: {{ .Values.app_volume_name }}
           mountPath: /var/www/catima/exports
           subPath: exports
+        - name: {{ .Values.app_volume_name }}
+          mountPath: /var/www/catima/tmp/refile
+          subPath: tmp-refile
         - name: config-domains
           mountPath: /var/www/catima/config/domains.yml
           subPath: domains.yml
