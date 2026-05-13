@@ -37,29 +37,11 @@ spec:
               mountPath: /var/www/catima/public/upload
               subPath: public-uploads
             - name: {{ .Values.app_volume_name }}
-              mountPath: /var/www/catima/public/thumbs
-              subPath: public-thumbs
-            - name: {{ .Values.app_volume_name }}
-              mountPath: /var/www/catima/public/system/refile
-              subPath: public-refile
-            - name: {{ .Values.app_volume_name }}
               mountPath: /var/www/catima/log
               subPath: logs
             - name: {{ .Values.app_volume_name }}
               mountPath: /var/www/catima/exports
               subPath: exports
-            - name: {{ .Values.app_volume_name }}
-              mountPath: /var/www/catima/tmp/refile
-              subPath: tmp-refile
-            - name: config-domains
-              mountPath: /var/www/catima/config/domains.yml
-              subPath: domains.yml
-            - name: config-geo-layers
-              mountPath: /var/www/catima/config/geo_layers.yml
-              subPath: geo_layers.yml
-            - name: config-restricted-robots
-              mountPath: /var/www/catima/config/restricted_robots.yml
-              subPath: restricted_robots.yml
           resources:
             requests:
               memory: "{{ .Values.worker_memory_request }}"
