@@ -1,2 +1,2 @@
-app_image_tag: app-v1.13.0
-worker_image_tag: worker-v1.13.0
+app_image_tag: app-v1.13.0-89100be-20260524232458
+worker_image_tag: worker-v1.13.0-89100be-20260524232458
