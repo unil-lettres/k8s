@@ -4,10 +4,8 @@ metadata:
   labels:
     app: {{ .Values.app_name }}-svc
   name: {{ .Values.app_name }}-svc
-  annotations:
-    traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
-    traefik.ingress.kubernetes.io/service.sticky.cookie.name: "http-cookie"
-    traefik.ingress.kubernetes.io/service.sticky.cookie.secure: "true"
+  namespace: {{ .Values.namespace }}
+  # Sticky sessions are not needed since user sessions are stored in Redis
 spec:
   ports:
   - name: "{{ .Values.app_name }}"
