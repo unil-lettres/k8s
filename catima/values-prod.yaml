@@ -1,2 +1,2 @@
-app_image_tag: app-xxx
-worker_image_tag: worker-xxx
+app_image_tag: app-v5.0.0
+worker_image_tag: worker-v5.0.0
