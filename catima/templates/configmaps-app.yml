@@ -54,3 +54,4 @@ data:
   AUTH_SHIB_APP_ID: "{{ .Values.ENV.auth_shib_app_id }}"
   AUTH_SHIB_NAME: "{{ .Values.ENV.auth_shib_name }}"
   APP_VERSION: "{{ .Values.app_image_tag }}"
+  RAILS_LOG_TO_STDOUT: "true"
