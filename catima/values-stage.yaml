@@ -1,2 +1,2 @@
-app_image_tag: app-stage-ab08151-20260531232800
-worker_image_tag: worker-stage-ab08151-20260531232759
+app_image_tag: app-stage-016ebdb-20260601061037
+worker_image_tag: worker-stage-016ebdb-20260601061032
