@@ -38,6 +38,12 @@ jobs:
             echo "Processing Helm chart in $chart_dir"
             mkdir -p "rendered_templates/$chart_dir"
           
+            # Build dependencies if needed
+            if grep -q "dependencies:" "$chart_dir/Chart.yaml"; then
+              echo "Building dependencies for $chart_dir"
+              helm dependency build "$chart_dir"
+            fi
+
             # Render Helm templates
             echo "Rendering templates for $chart_dir"
             helm template "$chart_dir" --output-dir "rendered_templates/$chart_dir"
@@ -62,6 +68,12 @@ jobs:
           # Find all Helm chart directories and lint each one
           find . -name 'Chart.yaml' -exec dirname {} \; | while read -r chart_dir; do
             echo "Linting Helm chart in $chart_dir"
+            
+            # Build dependencies if needed
+            if grep -q "dependencies:" "$chart_dir/Chart.yaml"; then
+              helm dependency build "$chart_dir"
+            fi
+
             helm lint "$chart_dir"
             if [ $? -ne 0 ]; then
               echo "Helm lint failed for $chart_dir"
