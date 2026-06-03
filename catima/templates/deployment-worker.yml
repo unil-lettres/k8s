@@ -37,9 +37,6 @@ spec:
               mountPath: /var/www/catima/public/upload
               subPath: public-uploads
             - name: {{ .Values.app_volume_name }}
-              mountPath: /var/www/catima/log
-              subPath: logs
-            - name: {{ .Values.app_volume_name }}
               mountPath: /var/www/catima/exports
               subPath: exports
           resources:
