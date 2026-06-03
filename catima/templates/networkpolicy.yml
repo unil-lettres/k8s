@@ -60,3 +60,7 @@ spec:
       - namespaceSelector:
           matchLabels:
             kubernetes.io/metadata.name: velero
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: logging

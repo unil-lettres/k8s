@@ -4,3 +4,6 @@
 # System files
 .DS_Store
 
+# Charts directories
+# Contains generated files from Helm
+*/charts/*
