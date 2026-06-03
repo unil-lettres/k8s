@@ -14,7 +14,7 @@ victoria-logs-single:
         memory: 512Mi
 victoria-logs-collector:
   remoteWrite:
-    - url: http://vls-victoria-logs-single-server:9428
+    - url: http://logging-victoria-logs-single-server:9428
       maxDiskUsagePerURL: 10GB
   resources:
     limits:
