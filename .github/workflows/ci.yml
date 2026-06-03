@@ -42,7 +42,6 @@ jobs:
             if grep -q "dependencies:" "$chart_dir/Chart.yaml"; then
               echo "Building dependencies for $chart_dir"
               helm dependency update "$chart_dir"
-              helm dependency build "$chart_dir"
             fi
 
             # Render Helm templates
@@ -73,7 +72,6 @@ jobs:
             # Build dependencies if needed
             if grep -q "dependencies:" "$chart_dir/Chart.yaml"; then
               helm dependency update "$chart_dir"
-              helm dependency build "$chart_dir"
             fi
 
             helm lint "$chart_dir"
