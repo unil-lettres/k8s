@@ -12,6 +12,11 @@ victoria-logs-single:
       requests:
         cpu: 500m
         memory: 512Mi
+vmui:
+  auth:
+    enabled: true
+    username: admin
+    password: admin
 victoria-logs-collector:
   remoteWrite:
     - url: http://logging-victoria-logs-single-server:9428

@@ -4,6 +4,9 @@ metadata:
   name: {{ .Values.namespace }}-server-ingress
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    {{- if .Values.vmui.auth.enabled }}
+    traefik.ingress.kubernetes.io/router.middlewares: "{{ .Values.namespace }}-auth@kubernetescrd"
+    {{- end }}
 spec:
   ingressClassName: traefik
   rules:
