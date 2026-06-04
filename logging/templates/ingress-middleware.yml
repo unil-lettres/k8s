@@ -4,10 +4,10 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: {{ .Values.namespace }}-auth-secret
-type: Opaque
+type: kubernetes.io/basic-auth
 stringData:
-  users: |
-    {{ .Values.vmui.auth.username }}:{PLAIN}{{ .Values.vmui.auth.password }}
+  username: "{{ .Values.vmui.auth.username }}"
+  password: "{{ .Values.vmui.auth.password }}"
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
