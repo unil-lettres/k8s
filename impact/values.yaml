@@ -46,6 +46,7 @@ ENV:
   mail_from_address: dev@localhost.ch
   mail_from_name: Webmaster
   log_channel: stack
+  log_level: info
   timezone: Europe/Zurich
   shib_hostname: null
   shib_contact: null
