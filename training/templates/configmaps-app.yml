@@ -30,6 +30,7 @@ data:
   REDIS_PASSWORD: "null"
   REDIS_PORT: "6379"
   LOG_CHANNEL: "{{ .Values.ENV.log_channel }}"
+  LOG_LEVEL: "{{ .Values.ENV.log_level }}"
   BROADCAST_CONNECTION: "log"
   CACHE_STORE: "file"
   QUEUE_CONNECTION: "sync"
