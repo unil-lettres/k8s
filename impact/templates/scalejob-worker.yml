@@ -47,9 +47,6 @@ spec:
               - name: {{ .Values.app_volume_name }}
                 mountPath: {{ .Values.app_workdir }}/storage/app/public
                 subPath: public-uploads
-              - name: {{ .Values.app_volume_name }}
-                mountPath: {{ .Values.app_workdir }}/storage/logs
-                subPath: storage-logs
             resources:
               requests:
                 memory: "{{ .Values.worker_memory_request }}"
