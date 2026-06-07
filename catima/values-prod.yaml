@@ -1,2 +1,2 @@
-app_image_tag: app-v5.1.0
-worker_image_tag: worker-v5.1.0
+app_image_tag: app-v5.1.0-142fd51-20260607233255
+worker_image_tag: worker-v5.1.0-142fd51-20260607233251
