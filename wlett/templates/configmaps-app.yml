@@ -29,6 +29,7 @@ data:
   MAIL_ENCRYPTION: "{{ .Values.ENV.mail_encryption }}"
   MAIL_FROM: "{{ .Values.ENV.mail_from }}"
   MAIL_FROM_NAME: "{{ .Values.ENV.mail_from_name }}"
+  LOG_CHANNEL: "{{ .Values.ENV.log_channel }}"
   STORAGE_TYPE: "local"
   CACHE_DRIVER: "file"
   SESSION_DRIVER: "file"

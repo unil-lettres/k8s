@@ -39,6 +39,7 @@ ENV:
   mail_encryption: null
   mail_from: dev@localhost.ch
   mail_from_name: Webmaster
+  log_channel: stderr
   file_upload_size_limit: 200
   recycle_bin_lifetime: 90
   ip_address_precision: 3
