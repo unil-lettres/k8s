@@ -1,6 +1,6 @@
 namespace: argocd
 app_name: argocd-server
-app_image_tag: v3.4.3 # Should match the current ArgoCD version
+app_image_tag: latest # Should match the current ArgoCD version
 ingress_host: my.argocd-host.com
 backup_timezone: Europe/Zurich
 backup_storage_request: 100Mi
