@@ -12,6 +12,8 @@ spec:
     spec:
       template:
         spec:
+          securityContext:
+            fsGroup: 999
           containers:
             - name: argocd-backup
               image: "quay.io/argoproj/argocd:{{ .Values.app_image_tag }}"
