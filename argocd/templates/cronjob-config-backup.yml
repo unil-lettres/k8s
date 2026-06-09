@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Values.app_name }}-backup
+  namespace: {{ .Values.namespace }}
+spec:
+  timeZone: {{ .Values.backup_timezone }}
+  schedule: "0 1 * * *"  # Runs daily at 1 AM
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: argocd-backup
+              image: "quay.io/argoproj/argocd:{{ .Values.app_image_tag }}"
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  find /dumps -type f -mtime +30 -exec rm {} \; && \
+                  argocd admin export -n {{ .Values.namespace }} > /backup/$(date +\%Y\%m\%d\%H\%M\%S)-backup.yaml
+              volumeMounts:
+                - name: {{ .Values.app_name }}-backup
+                  mountPath: /backup
+          restartPolicy: OnFailure
+          volumes:
+            - name: {{ .Values.app_name }}-backup
+              persistentVolumeClaim:
+                claimName: {{ .Values.app_name }}-backup-pvc
