@@ -18,7 +18,7 @@ spec:
               command: ["/bin/sh", "-c"]
               args:
                 - |
-                  find /dumps -type f -mtime +30 -exec rm {} \; && \
+                  find /backup -type f -mtime +30 -exec rm {} \; && \
                   argocd admin export -n {{ .Values.namespace }} > /backup/$(date +\%Y\%m\%d\%H\%M\%S)-backup.yaml
               volumeMounts:
                 - name: {{ .Values.app_name }}-backup
