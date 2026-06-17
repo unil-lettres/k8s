@@ -4,8 +4,8 @@ description: Helm chart for VictoriaLogs
 version: 1.0.0
 dependencies:
   - name: victoria-logs-single
-    version: 0.13.5
+    version: 0.13.8
     repository: https://victoriametrics.github.io/helm-charts
   - name: victoria-logs-collector
-    version: 0.3.4
+    version: 0.3.6
     repository: https://victoriametrics.github.io/helm-charts
