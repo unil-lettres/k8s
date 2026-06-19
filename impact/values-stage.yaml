@@ -1,2 +1,2 @@
-app_image_tag: app-stage-cf9bb14-20260614233926
-worker_image_tag: worker-stage-cf9bb14-20260614233922
+app_image_tag: app-stage-e0f01d3-20260619084147
+worker_image_tag: worker-stage-e0f01d3-20260619084147
