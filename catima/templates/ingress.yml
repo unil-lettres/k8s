@@ -6,6 +6,7 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespace }}-buffering@kubernetescrd
+    traefik.ingress.kubernetes.io/service.serverstransport: {{ .Values.namespace }}-transport@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:

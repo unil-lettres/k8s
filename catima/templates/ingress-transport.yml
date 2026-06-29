@@ -1,0 +1,9 @@
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: transport
+  namespace: {{ .Values.namespace }}
+spec:
+  forwardingTimeouts:
+    # Keep idle TCP connections alive for 5 minutes
+    idleConnTimeout: 300s
