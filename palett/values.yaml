@@ -57,6 +57,7 @@ ENV:
   shib_contact: admin@example.ch
   shib_entity_id: null
   shib_attributes: null # No attributes needed, apache-shibboleth will just check if the user is authenticated
+  shib_session_properties: null # No proerties needed, apache-shibboleth will just check if the user is authenticated
   shib_protected_paths: / # Protect the whole application
   shib_sp_cert: null
   shib_sp_key: null
