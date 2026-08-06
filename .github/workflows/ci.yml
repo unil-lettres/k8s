@@ -8,6 +8,9 @@ permissions: read-all
 jobs:
   validation:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        kubernetes-version: ['1.32', 'latest']
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -15,7 +18,11 @@ jobs:
       - name: Set up Kubernetes tools
         uses: azure/setup-kubectl@v5
         with:
-          version: 'latest'
+          version: ${{ matrix.kubernetes-version }}
+
+      - name: Kubernetes version
+        run: |
+          kubectl version --client
 
       - name: Install Helm
         uses: azure/setup-helm@v5
