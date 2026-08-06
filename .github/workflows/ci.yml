@@ -11,6 +11,7 @@ jobs:
     strategy:
       matrix:
         kubernetes-version: ['1.33', 'latest']
+        helm-version: ['3.19', 'latest']
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -21,13 +22,15 @@ jobs:
           version: ${{ matrix.kubernetes-version }}
 
       - name: Kubernetes version
-        run: |
-          kubectl version --client
+        run: kubectl version --client
 
       - name: Install Helm
         uses: azure/setup-helm@v5
         with:
-          version: 'latest'
+          version: ${{ matrix.helm-version }}
+
+      - name: Helm version
+        run: helm version
 
       - name: Install kubeconform
         run: |
