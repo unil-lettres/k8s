@@ -7,6 +7,7 @@ permissions: read-all
 
 jobs:
   validation:
+    name: Validate (k8s ${{ matrix.kubernetes-version }}, helm ${{ matrix.helm-version }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
