@@ -49,9 +49,6 @@ spec:
         - name: {{ .Values.app_volume_name }}
           mountPath: {{ .Values.app_workdir }}/storage/app/public
           subPath: public-uploads
-        - name: {{ .Values.app_volume_name }}
-          mountPath: /etc/shibboleth
-          subPath: shibboleth-config
         lifecycle:
           postStart:
             exec:
