@@ -44,6 +44,7 @@ ENV:
   mail_from_name: Webmaster
   log_channel: stack
   log_level: info
+  shib_auth_enabled: true
   shib_hostname: null
   shib_contact: null
   shib_entity_id: null
