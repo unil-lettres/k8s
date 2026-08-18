@@ -11,7 +11,7 @@ app_volume_name: data-volume
 app_ingress_host_cluster: my.host.com
 app_ingress_host_alias: my.host.com
 db_name: kuma-mysql
-db_image_tag: latest
+db_image_tag: next
 db_memory_request: 500Mi
 db_cpu_request: 0.2
 db_memory_limit: 1000Mi
