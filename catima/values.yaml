@@ -2,9 +2,9 @@ namespace: catima
 app_name: catima-app
 app_min_replicas: 2
 app_max_replicas: 5
-app_memory_request: 600Mi
+app_memory_request: 1500Mi
 app_cpu_request: 0.5
-app_memory_limit: 2000Mi
+app_memory_limit: 2500Mi
 app_cpu_limit: 2
 app_storage_request: 350Gi
 app_volume_name: data-volume
