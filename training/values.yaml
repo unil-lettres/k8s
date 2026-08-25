@@ -33,6 +33,7 @@ ENV:
   app_env: production
   app_key: SomeRandomStringWith32Characters
   app_url: https://my.domain.com
+  trusted_hosts: localhost
   app_local: fr
   mail_mailer: smtp
   mail_host: my.smtp.host

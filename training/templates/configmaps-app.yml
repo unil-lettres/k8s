@@ -15,6 +15,7 @@ data:
   APP_DEBUG: "false"
   APP_KEY: "{{ .Values.ENV.app_key }}"
   APP_URL: "{{ .Values.ENV.app_url }}"
+  TRUSTED_HOSTS: "{{ .Values.ENV.trusted_hosts }}"
   APP_TIMEZONE: "{{ .Values.ENV.timezone }}"
   APP_LOCALE: "{{ .Values.ENV.app_local }}"
   APP_FALLBACK_LOCALE: "en"
