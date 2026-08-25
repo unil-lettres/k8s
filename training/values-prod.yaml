@@ -1,2 +1,2 @@
-app_image_tag: v4.18.1-a23cd65-20260823230925
-shib_image_tag: latest
+app_image_tag: v4.19.0
+shib_image_tag: v1.3.0-5d46e04-20260823220734
