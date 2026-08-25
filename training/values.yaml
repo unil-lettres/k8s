@@ -18,6 +18,12 @@ db_memory_limit: 1500Mi
 db_cpu_limit: 1
 db_storage_request: 10Gi
 db_volume_name: data-volume
+shib_name: training-shib
+shib_image_tag: latest
+shib_memory_request: 150Mi
+shib_cpu_request: 0.1
+shib_memory_limit: 300Mi
+shib_cpu_limit: 0.5
 ENV:
   mysql_database: training
   mysql_user: user
@@ -27,6 +33,7 @@ ENV:
   app_env: production
   app_key: SomeRandomStringWith32Characters
   app_url: https://my.domain.com
+  trusted_hosts: localhost
   app_local: fr
   mail_mailer: smtp
   mail_host: my.smtp.host
@@ -38,7 +45,14 @@ ENV:
   mail_from_name: Webmaster
   log_channel: stack
   log_level: info
+  shib_auth_enabled: true
   shib_hostname: null
   shib_contact: null
+  shib_entity_id: null
+  shib_attributes: mail,givenName,surname
+  shib_session_properties: Shib-Identity-Provider
+  shib_protected_paths: /login/aai
+  shib_sp_cert: null
+  shib_sp_key: null
   bugsnag_api_key: null
   timezone: Europe/Zurich
