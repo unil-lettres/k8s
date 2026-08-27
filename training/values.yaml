@@ -55,3 +55,4 @@ ENV:
   shib_sp_key: null
   bugsnag_api_key: null
   timezone: Europe/Zurich
+  shib_security_headers_enabled: true
