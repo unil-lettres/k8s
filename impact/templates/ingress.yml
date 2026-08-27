@@ -16,7 +16,7 @@ spec:
         path: "/"
         backend:
           service:
-            name: {{ .Values.app_name }}-svc
+            name: {{ .Values.shib_name }}-svc
             port:
               number: 80
   - host: {{ .Values.app_ingress_host_alias }}
@@ -26,6 +26,6 @@ spec:
         path: "/"
         backend:
           service:
-            name: {{ .Values.app_name }}-svc
+            name: {{ .Values.shib_name }}-svc
             port:
               number: 80
