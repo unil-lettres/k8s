@@ -60,7 +60,7 @@ ENV:
   shib_entity_id: null
   shib_attributes: mail,givenName,surname
   shib_session_properties: Shib-Identity-Provider
-  shib_protected_paths: /login/aai
+  shib_protected_paths: /aai
   shib_sp_cert: null
   shib_sp_key: null
   bugsnag_api_key: null
