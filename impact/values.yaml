@@ -63,6 +63,7 @@ ENV:
   shib_protected_paths: /aai
   shib_sp_cert: null
   shib_sp_key: null
+  shib_security_headers_enabled: true
   bugsnag_api_key: null
   bugsnag_logger_level: warning
   moodle_base: null

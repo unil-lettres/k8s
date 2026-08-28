@@ -60,3 +60,4 @@ ENV:
   shib_protected_paths: / # Protect the whole application
   shib_sp_cert: null
   shib_sp_key: null
+  shib_security_headers_enabled: true

@@ -53,5 +53,6 @@ ENV:
   shib_protected_paths: /login/aai
   shib_sp_cert: null
   shib_sp_key: null
+  shib_security_headers_enabled: true
   bugsnag_api_key: null
   timezone: Europe/Zurich

@@ -29,3 +29,4 @@ data:
   SHIB_PROTECTED_PATHS: "{{ .Values.ENV.shib_protected_paths }}"
   SHIB_SP_CERT: "{{ .Values.ENV.shib_sp_cert }}"
   SHIB_SP_KEY: "{{ .Values.ENV.shib_sp_key }}"
+  SECURITY_HEADERS_ENABLED: "{{ .Values.ENV.shib_security_headers_enabled }}"
