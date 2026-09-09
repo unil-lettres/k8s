@@ -20,7 +20,7 @@ spec:
         command:
           - sh
           - -c
-          - chown -R 33:33 {{ .Values.app_workdir }}/storage/app/public
+          - chown -R 1000:1000 {{ .Values.app_workdir }}/storage/app/public
         securityContext:
           runAsUser: 0
         volumeMounts:
