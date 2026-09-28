@@ -3,7 +3,7 @@
 # check-pvc-usage.sh — read-only PVC quota/usage report
 #
 # For every PVC in the project namespaces:
-#   QUOTA : storage requested in the PVC spec (== CephFS subvolume quota)
+#   QUOTA : storage requested in the PVC spec
 #   USED  : actual bytes in use, measured with `df -B1` inside a running
 #           pod that mounts the PVC
 #
