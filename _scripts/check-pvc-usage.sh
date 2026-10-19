@@ -119,7 +119,7 @@ while IFS=$'\t' read -r ns pvc req pod cont mpath; do
       fi
       # usage % -> status: "warning" when >= WARN_PCT
       pct=$(awk -v u="$used_b" -v s="$req_b" 'BEGIN{ if(s>0) printf "%.1f", u*100/s; else printf "0.0" }')
-      if [ "$(awk -v p="$pct" -v t="$WARN_PCT" 'BEGIN{ print (p>=t)?1:0 }')" -eq 1 ]; then
+      if [ "$(awk -v u="$used_b" -v s="$req_b" -v t="$WARN_PCT" 'BEGIN{ p=(s>0)?u*100/s:0; print (p>=t)?1:0 }')" -eq 1 ]; then
         status="warning (used ${pct}% >= ${WARN_PCT}%)"
       else
         status="ok"
