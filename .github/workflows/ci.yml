@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        kubernetes-version: ['1.33.0', 'latest']
+        kubernetes-version: ['1.34.0', 'latest']
         helm-version: ['4.2.0', 'latest']
     steps:
       - name: Checkout code
