@@ -8,6 +8,7 @@ memory_request: 100Mi
 cpu_request: 0.1
 memory_limit: 500Mi
 cpu_limit: 1
+backup_timezone: Europe/Zurich
 ENV:
   domain: https://my.domain.com
   signups_allowed: false

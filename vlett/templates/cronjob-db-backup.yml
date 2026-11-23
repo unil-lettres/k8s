@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Values.app_name }}-backup
+  namespace: {{ .Values.namespace }}
+spec:
+  timeZone: {{ .Values.backup_timezone }}
+  schedule: "0 1 * * *"  # Runs daily at 1 AM
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          # Same node as the Vaultwarden instance. SQLite must
+          # not be opened from two different nodes at once
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchLabels:
+                      app: {{ .Values.app_name }}
+                  topologyKey: kubernetes.io/hostname
+          containers:
+            - name: vaultwarden-backup
+              image: "vaultwarden/server:{{ .Values.image_tag }}"
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  set -e
+                  rm -f /data/db_[0-9]*_[0-9]*.sqlite3
+                  /vaultwarden backup
+                  mkdir -p /data/dumps
+                  mv /data/db_[0-9]*_[0-9]*.sqlite3 /data/dumps/$(date +\%Y\%m\%d\%H\%M\%S).sqlite3
+                  find /data/dumps -type f -mtime +30 -exec rm {} \;
+              volumeMounts:
+                - name: {{ .Values.volume_name }}
+                  mountPath: /data
+          restartPolicy: OnFailure
+          volumes:
+            - name: {{ .Values.volume_name }}
+              persistentVolumeClaim:
+                claimName: {{ .Values.app_name }}-pvc
