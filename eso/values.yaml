@@ -1,0 +1,18 @@
+namespace: external-secrets
+
+openbao:
+  enabled: true
+  store_name: openbao
+  server: http://openbao-active.openbao:8200
+  kv_path: secret
+  kv_version: v2
+  auth_mount_path: kubernetes
+  auth_role: external-secrets
+  # Namespaces allowed to use the ESO ClusterSecretStore.
+  # If empty, any namespace can use it.
+  namespaces:
+    - logging
+
+external-secrets:
+  fullnameOverride: external-secrets
+  installCRDs: true
