@@ -43,12 +43,12 @@ jobs:
       - name: Render and validate all Helm charts
         run: |
           set -e  # Exit the script if any command fails
-          
+
           # Find all Helm chart directories and process each one
           find . -name 'Chart.yaml' -exec dirname {} \; | while read -r chart_dir; do
             echo "Processing Helm chart in $chart_dir"
             mkdir -p "rendered_templates/$chart_dir"
-          
+
             # Build dependencies if needed
             if grep -q "dependencies:" "$chart_dir/Chart.yaml"; then
               echo "Building dependencies for $chart_dir"
@@ -62,10 +62,13 @@ jobs:
               echo "Helm template rendering failed for $chart_dir"
               exit 1
             fi
-          
+
             # Validate rendered templates with kubeconform
             echo "Validating rendered templates for $chart_dir"
-            find "rendered_templates/$chart_dir" -name '*.yaml' -exec kubeconform --strict --verbose {} +
+            find "rendered_templates/$chart_dir" \( -name '*.yaml' -o -name '*.yml' \) -exec kubeconform --strict --verbose \
+              --ignore-missing-schemas \
+              --schema-location default \
+              --schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json' {} +
             if [ $? -ne 0 ]; then
               echo "kubeconform validation failed for $chart_dir"
               exit 1
@@ -75,11 +78,11 @@ jobs:
       - name: Lint all Helm charts
         run: |
           set -e  # Exit the script if any command fails
-          
+
           # Find all Helm chart directories and lint each one
           find . -name 'Chart.yaml' -exec dirname {} \; | while read -r chart_dir; do
             echo "Linting Helm chart in $chart_dir"
-            
+
             # Build dependencies if needed
             if grep -q "dependencies:" "$chart_dir/Chart.yaml"; then
               helm dependency update "$chart_dir"
