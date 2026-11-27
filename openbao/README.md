@@ -145,7 +145,7 @@ metadata:
   name: vmui-auth
   namespace: logging
 spec:
-  refreshInterval: 1h
+  refreshInterval: 10m
   secretStoreRef: { name: openbao, kind: ClusterSecretStore }
   target:
     name: vmui-auth
