@@ -1,0 +1,98 @@
+namespace: openbao
+app_name: openbao
+ingress_host: my.openbao-host.com
+backup_image_tag: 2.7.3 # Should match the current OpenBao version
+backup_timezone: Europe/Zurich
+backup_storage_request: 5Gi
+backup_run_as_user: 100 # openbao user in the image
+backup_fs_group: 1000 # group on the backup volume
+backup_memory_request: 64Mi
+backup_cpu_request: 50m
+backup_memory_limit: 256Mi
+backup_cpu_limit: 500m
+viewer_memory_request: 16Mi
+viewer_cpu_request: 10m
+viewer_memory_limit: 64Mi
+viewer_cpu_limit: 100m
+
+# Self-initialization (templates/configmap-init.yml, files/policies/*.hcl).
+# Runs once, on the first start with empty storage. Changing these on a running cluster
+# does nothing: change OpenBao itself with `bao`, and keep these in line for rebuilds.
+init:
+  kv_path: secret # must match kv_path in eso/values.yaml
+  admin_user: admin
+  admin_initial_password: admin # TEMPORARY, change it right after the first start
+  eso: # must match eso/values.yaml (auth_role, fullnameOverride, namespace)
+    auth_role: external-secrets
+    service_account: external-secrets
+    namespace: external-secrets
+
+openbao:
+  # keep Service and pod names independent of the ArgoCD application name
+  fullnameOverride: openbao
+  injector:
+    # ESO replaces the agent injector
+    enabled: false
+  server:
+    # OrderedReady starts openbao-0 first, and the others join it. Needed
+    # when self-initialization is used.
+    podManagementPolicy: OrderedReady
+    # Pods are replaced one at a time. Needed to automatically restart
+    # the pods after an update.
+    updateStrategyType: RollingUpdate
+    ha: # 3-node Raft cluster
+      enabled: true
+      replicas: 3
+      raft:
+        enabled: true
+        setNodeId: true
+        config: |
+          ui = true
+
+          listener "tcp" {
+            tls_disable = 1
+            address = "[::]:8200"
+            cluster_address = "[::]:8201"
+          }
+
+          storage "raft" {
+            path = "/openbao/data"
+
+            retry_join {
+              leader_api_addr = "http://openbao-0.openbao-internal:8200"
+            }
+            retry_join {
+              leader_api_addr = "http://openbao-1.openbao-internal:8200"
+            }
+            retry_join {
+              leader_api_addr = "http://openbao-2.openbao-internal:8200"
+            }
+          }
+
+          # Auto-unseal
+          seal "static" {
+            current_key_id = "20261123-1"
+            current_key    = "file:///openbao/unseal-key/key"
+          }
+
+          service_registration "kubernetes" {}
+    # Self-initialization config is a second config file, rendered by
+    # templates/configmap-init.yml.
+    extraVolumes:
+      - type: configMap
+        name: openbao-init
+    # extraVolumes mounts it at /openbao/userconfig/<name>; OpenBao merges both config files
+    extraArgs: "-config=/openbao/userconfig/openbao-init/init.hcl"
+    volumes:
+      - name: unseal-key
+        secret:
+          secretName: openbao-unseal-key
+    volumeMounts:
+      - name: unseal-key
+        mountPath: /openbao/unseal-key
+        readOnly: true
+    dataStorage:
+      enabled: true
+      size: 10Gi
+  ui:
+    enabled: true

@@ -1,0 +1,121 @@
+# Self-initialization config (OpenBao `initialize` block), loaded as a second config file.
+#
+# Runs once, on the first start with empty storage: no `bao operator init`, no root token
+# and no recovery keys (the root token is revoked after these requests). A failed request
+# aborts the block. Changing it later does nothing on a running cluster.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openbao-init
+  namespace: {{ .Values.namespace }}
+data:
+  init.hcl: |
+    # Audit log to the pod stdout
+    audit "file" "stdout" {
+      description = "Write audit information to standard output."
+      options {
+        file_path = "stdout"
+      }
+    }
+
+    initialize "bootstrap" {
+      # KV v2 secrets engine, read by ESO
+      request "kv" {
+        operation = "update"
+        path      = "sys/mounts/{{ .Values.init.kv_path }}"
+        data = {
+          type = "kv"
+          options = {
+            version = "2"
+          }
+        }
+      }
+
+      # ACL policies, one per file in files/policies/
+    {{- range $name := list "eso-read" "editor" "admin" "snapshot" }}
+      request "policy-{{ $name }}" {
+        operation = "update"
+        path      = "sys/policies/acl/{{ $name }}"
+        data = {
+          policy = {{ tpl ($.Files.Get (printf "files/policies/%s.hcl" $name)) $ | toJson }}
+        }
+      }
+    {{- end }}
+
+      # Human logins (username and password)
+      request "enable-userpass" {
+        operation = "update"
+        path      = "sys/auth/userpass"
+        data = {
+          type = "userpass"
+        }
+      }
+
+      # Create the admin account with a TEMPORARY password, change it right after the first start
+      request "user-admin" {
+        operation = "update"
+        path      = "auth/userpass/users/{{ .Values.init.admin_user }}"
+        data = {
+          password      = {{ .Values.init.admin_initial_password | toJson }}
+          policies      = ["admin"]
+          token_ttl     = "8h"
+          token_max_ttl = "24h"
+        }
+      }
+
+      # Machine logins with ServiceAccount tokens
+      request "enable-k8s-auth" {
+        operation = "update"
+        path      = "sys/auth/kubernetes"
+        data = {
+          type = "kubernetes"
+        }
+      }
+
+      # Where OpenBao validates those tokens (TokenReview on the in-cluster API)
+      request "k8s-config" {
+        operation = "update"
+        path      = "auth/kubernetes/config"
+        data = {
+          kubernetes_host = "https://kubernetes.default.svc:443"
+        }
+      }
+
+      # Backup CronJob role
+      request "role-snapshot" {
+        operation = "update"
+        path      = "auth/kubernetes/role/snapshot"
+        data = {
+          bound_service_account_names      = ["{{ .Values.app_name }}-backup"]
+          bound_service_account_namespaces = ["{{ .Values.namespace }}"]
+          policies                         = ["snapshot"]
+          ttl                              = "10m"
+        }
+      }
+
+      # External Secrets Operator role
+      request "role-external-secrets" {
+        operation = "update"
+        path      = "auth/kubernetes/role/{{ .Values.init.eso.auth_role }}"
+        data = {
+          bound_service_account_names      = ["{{ .Values.init.eso.service_account }}"]
+          bound_service_account_namespaces = ["{{ .Values.init.eso.namespace }}"]
+          policies                         = ["eso-read"]
+          ttl                              = "1h"
+        }
+      }
+
+      # Break-glass login, since there is no root token. Access is whoever can run
+      # `kubectl -n {{ .Values.namespace }} create token {{ .Values.app_name }}-bootstrap`
+      # (templates/serviceaccount-bootstrap.yml).
+      request "role-bootstrap-admin" {
+        operation = "update"
+        path      = "auth/kubernetes/role/bootstrap-admin"
+        data = {
+          bound_service_account_names      = ["{{ .Values.app_name }}-bootstrap"]
+          bound_service_account_namespaces = ["{{ .Values.namespace }}"]
+          policies                         = ["admin"]
+          ttl                              = "1h"
+        }
+      }
+    }

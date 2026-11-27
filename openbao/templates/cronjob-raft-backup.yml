@@ -1,0 +1,51 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Values.app_name }}-backup
+  namespace: {{ .Values.namespace }}
+spec:
+  timeZone: {{ .Values.backup_timezone }}
+  schedule: "0 1 * * *"  # Runs daily at 1 AM
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: {{ .Values.app_name }}-backup
+          securityContext:
+            runAsUser: {{ .Values.backup_run_as_user }}
+            fsGroup: {{ .Values.backup_fs_group }}
+          containers:
+            - name: openbao-backup
+              image: "quay.io/openbao/openbao:{{ .Values.backup_image_tag }}"
+              env:
+                - name: BAO_ADDR
+                  value: "http://{{ .Values.openbao.fullnameOverride }}-active.{{ .Values.namespace }}:8200"
+              resources:
+                requests:
+                  memory: "{{ .Values.backup_memory_request }}"
+                  cpu: "{{ .Values.backup_cpu_request }}"
+                limits:
+                  memory: "{{ .Values.backup_memory_limit }}"
+                  cpu: "{{ .Values.backup_cpu_limit }}"
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  set -e
+                  # Log in with the ServiceAccount token (Kubernetes auth role "snapshot")
+                  BAO_TOKEN=$(bao write -field=token auth/kubernetes/login role=snapshot jwt=@/var/run/secrets/kubernetes.io/serviceaccount/token)
+                  export BAO_TOKEN
+                  rm -f /dumps/*.part
+                  NAME=$(date +\%Y\%m\%d\%H\%M\%S)
+                  bao operator raft snapshot save /dumps/$NAME.snap.part
+                  mv /dumps/$NAME.snap.part /dumps/$NAME.snap
+                  find /dumps -type f -name '*.snap' -mtime +30 -exec rm {} \;
+              volumeMounts:
+                - name: dumps
+                  mountPath: /dumps
+          restartPolicy: OnFailure
+          volumes:
+            - name: dumps
+              persistentVolumeClaim:
+                claimName: {{ .Values.app_name }}-backup-pvc

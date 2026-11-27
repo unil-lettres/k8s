@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app_name }}-backup-viewer
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.app_name }}-backup-viewer
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app_name }}-backup-viewer
+    spec:
+      containers:
+        - name: viewer
+          image: busybox:stable
+          # Keep the pod running, and stop on SIGTERM
+          command: ["/bin/sh", "-c", "trap 'exit 0' TERM; sleep 3600 & wait"]
+          resources:
+            requests:
+              memory: "{{ .Values.viewer_memory_request }}"
+              cpu: "{{ .Values.viewer_cpu_request }}"
+            limits:
+              memory: "{{ .Values.viewer_memory_limit }}"
+              cpu: "{{ .Values.viewer_cpu_limit }}"
+          volumeMounts:
+            - name: dumps
+              mountPath: /dumps
+              readOnly: true
+      volumes:
+        - name: dumps
+          persistentVolumeClaim:
+            claimName: {{ .Values.app_name }}-backup-pvc
